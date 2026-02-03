@@ -17,35 +17,35 @@ public class Zhisuan11Command_tp implements CommandExecutor {
         Player targetPlayer = player.getServer().getPlayer(args[1]);
         Player sendPlayer = (Player) sender;
 
-        if (args.length == 4) {
-            double x = Double.parseDouble(args[1]);
-            double y = Double.parseDouble(args[2]);
-            double z = Double.parseDouble(args[3]);
+        //  /zs @s x y z
+        if (args.length == 5 && args[1].equals("@s")) {
+            double x = Double.parseDouble(args[2]);
+            double y = Double.parseDouble(args[3]);
+            double z = Double.parseDouble(args[4]);
             Location location = new Location(player.getWorld(), x, y, z);
             sendPlayer.teleport(location);
             sendPlayer.sendMessage("你已被传送至: " + x + ", " + y + ", " + z);
             return true;
         }
 
+        //  /zs spawn
         else if (args.length == 2 && args[1].equals("spawn")) {
             Location spawnLocation = player.getWorld().getSpawnLocation();
             sendPlayer.teleport(spawnLocation);
         }
 
+        //  /zs player
         else if (args.length == 2  && targetPlayer != null) {
-
             sendPlayer.teleport(targetPlayer);
             sender.sendMessage("你已被传送至：" + targetPlayer.getName());
             return true;
-
         }
+
 
         else {
             sender.sendMessage("命令格式错误，请重试！");
             return true;
         }
-               //指令    /zs tp ……
-
 
         return false;
     }

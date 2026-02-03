@@ -17,5 +17,4 @@ public class Respawn implements Listener {
         // 传送玩家到出生点
         event.getEntity().teleport(spawnLocation);
     }
-
 }

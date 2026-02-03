@@ -1,4 +1,8 @@
-#设置加入游戏时的标题内容和样式
+##############################
+##        服务器信息类       ##
+##############################
+
+# 设置加入游戏时的标题内容和样式
 JoinTitle:
   title: "&b欢迎来到智算11班MC服务器！"
   subtitle: "&b祝您游玩愉快!"
@@ -6,13 +10,13 @@ JoinTitle:
   stay: 5
   fade-out: 1
 
-#设置加入游戏时发送给玩家的信息
+# 设置加入游戏时发送给玩家的信息
 JoinMessage:
   - " &6&l%player%, 欢迎来到智算11班MC服务器！ "
   - " &6&l紧密团结在以江书记为核心的团支部周围！"
   - " &6&l如果遇到Bug请至Github或微信群中留言。"
 
-#设置服务器公告
+# 设置服务器公告
 BroadCast:
   enabled: true
   content:
@@ -21,32 +25,34 @@ BroadCast:
     - ""
   interval: 900              #循环时间间隔（单位：秒）
 
-#设置玩家重生位置
+
+##############################
+##         服务器物品类      ##
+##############################
+
+# 初始物品套装
+FirstJoinItems:
+  - material: DIAMOND
+    amount: 1
+    name: "&a钻石"
+    lore:
+      - "&7新手礼包!"
+  - material: GOLD_INGOT
+    amount: 5
+    name: "&6金锭"
+    lore:
+      - "&7新手礼包!"
+  - material: DIAMOND_SWORD
+    amount: 1
+    name: "&7石剑"
+    lore:
+      - "&7新手礼包!"
+  - material: WOODEN_AXE
+    amount: 1
+    name: "&e石镐"
+    lore:
+      - "&7新手礼包!"
+
+# 设置玩家重生位置
 Spawn:
   teleport-to-spawn: true
-
-
-JoinItem:
-  #设置首次加入时获得的物品列表（暂未实现）
-  first-join-item:
-    - material: DIAMOND
-      amount: 1
-      name: '&a钻石'
-      lore:
-      - '&7新手礼包!'
-    - material: GOLD_INGOT
-      amount: 5
-      name: '&6金锭'
-      lore:
-      - '&7新手礼包!'
-    - material: WOODEN_SWORD
-      amount: 1
-      name: '&7石剑'
-      lore:
-      - '&7新手礼包!'
-    - material: WOODEN_AXE
-      amount: 1
-      name: '&e石镐'
-      lore:
-      - '&7新手礼包!'
-

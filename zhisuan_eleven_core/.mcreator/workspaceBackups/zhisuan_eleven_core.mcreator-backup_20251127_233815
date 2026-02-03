@@ -328,17 +328,6 @@
         ]
       },
       "path": "~/Command"
-    },
-    {
-      "name": "ZhisuanElevenAscii",
-      "type": "painting",
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "zhisuan_eleven_ascii",
-      "metadata": {
-        "files": []
-      },
-      "path": "~/Painting"
     }
   ],
   "variable_elements": [],
@@ -382,10 +371,8 @@
       "subtitles.school_song": "",
       "painting.zhisuan_eleven_core.tuan_hui.title": "Tuan Hui",
       "painting.zhisuan_eleven_core.tuan_qi.author": "The Communist Youth League of China",
-      "painting.zhisuan_eleven_core.zhisuan_eleven_ascii.author": "Zhisuan Eleven",
       "item.zhisuan_eleven_core.music_disc_2": "Music Disc 2",
       "item.zhisuan_eleven_core.music_disc_1": "Music Disc 1",
-      "painting.zhisuan_eleven_core.zhisuan_eleven_ascii.title": "Zhisuan Eleven Ascii",
       "subtitles.the_internationale": "",
       "advancements.the_internationale.title": "The Internationale",
       "painting.zhisuan_eleven_core.tuan_qi.title": "Tuan Qi",
@@ -406,10 +393,8 @@
       "subtitles.school_song": "",
       "painting.zhisuan_eleven_core.tuan_hui.title": "团徽",
       "painting.zhisuan_eleven_core.tuan_qi.author": "中国共青团",
-      "painting.zhisuan_eleven_core.zhisuan_eleven_ascii.author": "智算11班",
       "item.zhisuan_eleven_core.music_disc_2": "唱片2",
       "item.zhisuan_eleven_core.music_disc_1": "唱片1",
-      "painting.zhisuan_eleven_core.zhisuan_eleven_ascii.title": "智算11艺术字",
       "subtitles.the_internationale": "",
       "advancements.the_internationale.title": "国际歌",
       "painting.zhisuan_eleven_core.tuan_qi.title": "团旗",
@@ -471,7 +456,7 @@
     "websiteURL": "https://github.com/5882886/My-Minecraft-Sever",
     "license": "Not specified",
     "serverSideOnly": false,
-    "modPicture": "icon",
+    "modPicture": "zhisuaneleven",
     "requiredMods": [],
     "dependencies": [],
     "dependants": [],

@@ -1,5 +1,5 @@
 name: zhisuan11core
-version: '1.0-SNAPSHOT'
+version: '1.0'
 main: org.zhisuan11.zhisuan11core.Zhisuan11core
 api-version: '1.20'
 authors: [RunicDolphin806]
@@ -9,4 +9,6 @@ commands:
     description: "欢迎指令"
     permission: Zhisuan11.Main
     aliases: zs
-
+  tp:
+    description: "传送指令"
+    permission: Zhisuan11.tp

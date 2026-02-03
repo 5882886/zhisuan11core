@@ -21,6 +21,7 @@ public class Zhisuan11TabCompleter implements TabCompleter {
                 completions.add("broadcast");
                 completions.add("reload");
                 completions.add("setspawn");
+                completions.add("kit");
                 return completions;
             }
 
