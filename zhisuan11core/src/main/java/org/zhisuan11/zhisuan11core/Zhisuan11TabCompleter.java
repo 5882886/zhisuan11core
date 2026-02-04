@@ -17,6 +17,7 @@ public class Zhisuan11TabCompleter implements TabCompleter {
                 List<String> completions = new ArrayList<>();   //创建参数补全列表
                 completions.add("help");
                 completions.add("info");
+                completions.add("menu");
                 completions.add("broadcast");
                 completions.add("reload");
                 completions.add("setspawn");
@@ -24,10 +25,17 @@ public class Zhisuan11TabCompleter implements TabCompleter {
                 return completions;
             }
 
-            else if (args.length == 2 && args[0].equals("broadcast")) {
-                List<String> completions = new ArrayList<>();   //创建参数补全列表
-                completions.add("send");
-                return completions;
+            else if (args.length == 2) {
+                if (args[0].equals("broadcast")) {
+                    List<String> completions = new ArrayList<>();
+                    completions.add("send");
+                    return completions;
+                }
+                else if (args[0].equals("menu")) {
+                    List<String> completions = new ArrayList<>();
+                    completions.add("open");
+                    return completions;
+                }
             }
         }
 

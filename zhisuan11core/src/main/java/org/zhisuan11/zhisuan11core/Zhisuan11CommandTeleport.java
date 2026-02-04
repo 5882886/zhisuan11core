@@ -13,7 +13,7 @@ import java.util.UUID;
 import static org.bukkit.Bukkit.getPlayer;
 
 // 接管原版的 tp 指令
-public class Zhisuan11Command_tp implements CommandExecutor {
+public class Zhisuan11CommandTeleport implements CommandExecutor {
 
     private final Map<UUID, Long> cooldowns = new HashMap<>();
 

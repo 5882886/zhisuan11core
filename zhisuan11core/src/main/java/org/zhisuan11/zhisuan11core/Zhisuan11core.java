@@ -19,8 +19,8 @@ public final class Zhisuan11core extends JavaPlugin {
         main = this;
 
         // Plugin startup logic
-        getLogger().info("  欢迎您使用智算11班服务器插件！ ");
-        getLogger().info("  插件仓库：https://github.com/5882886/My-Minecraft-Server！ ");
+        getLogger().info("欢迎您使用智算11班服务器插件！");
+        getLogger().info("插件仓库：https://github.com/5882886/My-Minecraft-Server！");
         getLogger().info("███████╗██╗  ██╗██╗███████╗██╗   ██╗ █████╗ ███╗   ██╗███████╗██╗     ███████╗██╗   ██╗███████╗███╗   ██╗");
         getLogger().info("╚══███╔╝██║  ██║██║██╔════╝██║   ██║██╔══██╗████╗  ██║██╔════╝██║     ██╔════╝██║   ██║██╔════╝████╗  ██║");
         getLogger().info("  ███╔╝ ███████║██║███████╗██║   ██║███████║██╔██╗ ██║█████╗  ██║     █████╗  ██║   ██║█████╗  ██╔██╗ ██║");
@@ -29,8 +29,8 @@ public final class Zhisuan11core extends JavaPlugin {
         getLogger().info("╚══════╝╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚══════╝╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝");
 
 
-        Objects.requireNonNull(Bukkit.getPluginCommand("zhisuan11")).setExecutor(new Zhisuan11Command_main());
-        Objects.requireNonNull(Bukkit.getPluginCommand("tp")).setExecutor(new Zhisuan11Command_tp());
+        Objects.requireNonNull(Bukkit.getPluginCommand("zhisuan11")).setExecutor(new Zhisuan11CommandMain());
+        Objects.requireNonNull(Bukkit.getPluginCommand("tp")).setExecutor(new Zhisuan11CommandTeleport());
 
         Objects.requireNonNull(Bukkit.getPluginCommand("zhisuan11")).setTabCompleter(new Zhisuan11TabCompleter());
 
@@ -38,6 +38,7 @@ public final class Zhisuan11core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new JoinInfo(), this);
         Bukkit.getPluginManager().registerEvents(new JoinItem(), this);
         Bukkit.getPluginManager().registerEvents(new Respawn(), this);
+        Bukkit.getPluginManager().registerEvents(new MainMenuClick(), this);
 
         // 生成配置文件
         saveDefaultConfig();
@@ -62,8 +63,8 @@ public final class Zhisuan11core extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        getLogger().info("  感谢您使用智算11班服务器插件！ ");
-        getLogger().info("  插件仓库：https://github.com/5882886/My-Minecraft-Server！ ");
+        getLogger().info("感谢您使用智算11班服务器插件！");
+        getLogger().info("插件仓库：https://github.com/5882886/My-Minecraft-Server！");
         getLogger().info("███████╗██╗  ██╗██╗███████╗██╗   ██╗ █████╗ ███╗   ██╗███████╗██╗     ███████╗██╗   ██╗███████╗███╗   ██╗");
         getLogger().info("╚══███╔╝██║  ██║██║██╔════╝██║   ██║██╔══██╗████╗  ██║██╔════╝██║     ██╔════╝██║   ██║██╔════╝████╗  ██║");
         getLogger().info("  ███╔╝ ███████║██║███████╗██║   ██║███████║██╔██╗ ██║█████╗  ██║     █████╗  ██║   ██║█████╗  ██╔██╗ ██║");
