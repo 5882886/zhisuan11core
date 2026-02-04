@@ -20,6 +20,7 @@ public final class Zhisuan11core extends JavaPlugin {
 
         // Plugin startup logic
         getLogger().info("  欢迎您使用智算11班服务器插件！ ");
+        getLogger().info("  插件仓库：https://github.com/5882886/My-Minecraft-Server！ ");
         getLogger().info("███████╗██╗  ██╗██╗███████╗██╗   ██╗ █████╗ ███╗   ██╗███████╗██╗     ███████╗██╗   ██╗███████╗███╗   ██╗");
         getLogger().info("╚══███╔╝██║  ██║██║██╔════╝██║   ██║██╔══██╗████╗  ██║██╔════╝██║     ██╔════╝██║   ██║██╔════╝████╗  ██║");
         getLogger().info("  ███╔╝ ███████║██║███████╗██║   ██║███████║██╔██╗ ██║█████╗  ██║     █████╗  ██║   ██║█████╗  ██╔██╗ ██║");
@@ -33,9 +34,10 @@ public final class Zhisuan11core extends JavaPlugin {
 
         Objects.requireNonNull(Bukkit.getPluginCommand("zhisuan11")).setTabCompleter(new Zhisuan11TabCompleter());
 
+        // 注册服务器事件
         Bukkit.getPluginManager().registerEvents(new JoinInfo(), this);
         Bukkit.getPluginManager().registerEvents(new JoinItem(), this);
-
+        Bukkit.getPluginManager().registerEvents(new Respawn(), this);
 
         // 生成配置文件
         saveDefaultConfig();
@@ -52,7 +54,7 @@ public final class Zhisuan11core extends JavaPlugin {
                     message = ChatColor.translateAlternateColorCodes('&', message);
                     getServer().broadcastMessage(message);
                 }
-            }, 20L * 15, 20L * interval);   //加载插件15秒后发送第一次公告，此后每interval秒发送一次
+            }, 20L * 15, 20L * interval);   // 加载插件15秒后发送第一次公告，此后每interval秒发送一次
         }
 
     }
@@ -61,6 +63,7 @@ public final class Zhisuan11core extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         getLogger().info("  感谢您使用智算11班服务器插件！ ");
+        getLogger().info("  插件仓库：https://github.com/5882886/My-Minecraft-Server！ ");
         getLogger().info("███████╗██╗  ██╗██╗███████╗██╗   ██╗ █████╗ ███╗   ██╗███████╗██╗     ███████╗██╗   ██╗███████╗███╗   ██╗");
         getLogger().info("╚══███╔╝██║  ██║██║██╔════╝██║   ██║██╔══██╗████╗  ██║██╔════╝██║     ██╔════╝██║   ██║██╔════╝████╗  ██║");
         getLogger().info("  ███╔╝ ███████║██║███████╗██║   ██║███████║██╔██╗ ██║█████╗  ██║     █████╗  ██║   ██║█████╗  ██╔██╗ ██║");

@@ -33,8 +33,9 @@ public class Zhisuan11Command_main implements CommandExecutor {
         //   指令/zs info
         if (args.length == 1 && args[0].equals("info")){
             sender.sendMessage(ChatColor.DARK_GRAY + "插件信息");
-            sender.sendMessage(ChatColor.BLUE + " - 本插件为天津大学2024级智算11班服务器专用插件");
+            sender.sendMessage(ChatColor.BLUE + " - 本插件为天津大学2024级智算11班服务器插件");
             sender.sendMessage(ChatColor.BLUE + " - 如遇bug请至Github或\"11班MC\"微信群提交");
+            sender.sendMessage(ChatColor.DARK_GRAY + " - Github仓库：https://github.com/5882886/My-Minecraft-Server");
             return true;
         }
 
@@ -61,17 +62,28 @@ public class Zhisuan11Command_main implements CommandExecutor {
             return true;
         }
 
-        // 指令 /zs kit player
+        // 指令 /zs kit targetPlayer
         else if (args.length == 2 && args[0].equals("kit")) {
             Player targetPlayer = player.getServer().getPlayer(args[1]);
-            JoinItem.giveFirstJoinItems(targetPlayer);
+            // JoinItem 不是静态类，需要先创建实例再调用
+            JoinItem joinItem = new JoinItem();
+            joinItem.giveFirstJoinItems(targetPlayer);
+            return true;
         }
 
         //   指令/zs reload
         if (args.length == 1 && args[0].equals("reload")) {
-            sender.sendMessage(ChatColor.BLUE + "[zhisuan11core]正在重载插件配置……");
-            Zhisuan11core.main.reloadConfig();
-            sender.sendMessage(ChatColor.BLUE + "[zhisuan11core]配置文件重载完成！");
+            if (sender != null) {
+                sender.sendMessage(ChatColor.BLUE + "[zhisuan11core]正在重载插件配置……");
+                Zhisuan11core.main.reloadConfig();
+                sender.sendMessage(ChatColor.BLUE + "[zhisuan11core]配置文件重载完成！");
+            }
+            else {
+                Zhisuan11core.main.getLogger().info(ChatColor.BLUE + "[zhisuan11core]正在重载插件配置……");
+                Zhisuan11core.main.reloadConfig();
+                Zhisuan11core.main.getLogger().info(ChatColor.BLUE + "[zhisuan11core]配置文件重载完成！");
+            }
+            return true;
         }
 
 

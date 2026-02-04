@@ -6,20 +6,20 @@ authors: [RunicDolphin806]
 
 # 插件指令名
 commands:
-  zhisuan11:
-    description: "欢迎指令"
-    permission: Zhisuan11.Main
-    aliases: zs
-  tp:
-    description: "传送指令"
-    permission: Zhisuan11.tp
-    aliases: [teleport]
+    zhisuan11:
+        description: "欢迎指令"
+        permission: Zhisuan11.main
+        aliases: zs
+    tp:
+        description: "传送指令"
+        permission: Zhisuan11.tp
+        aliases: [teleport]
 
 # 权限设置
 permissions:
-  Zhisuan11.main:
-    description: 允许使用基础命令
-    default: true
-  Zhisuan11.tp:
-    description: 允许使用基础传送指令
-    default: true
+    Zhisuan11.main:
+        description: 允许使用基础命令
+        default: true
+    Zhisuan11.tp:
+        description: 允许使用基础传送指令
+        default: true

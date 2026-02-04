@@ -1,20 +1,28 @@
 package org.zhisuan11.zhisuan11core;
 
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+
+import java.util.Objects;
 
 // 玩家重生逻辑
 public class Respawn implements Listener {
+
+    FileConfiguration config = Zhisuan11core.main.getConfig();
+
     @EventHandler
-
-    public void spawn(PlayerDeathEvent event) {
-        event.getEntity().spigot().respawn();
-
-        // 获取世界出生点
-        Location spawnLocation = event.getEntity().getWorld().getSpawnLocation();
-        // 传送玩家到出生点
-        event.getEntity().teleport(spawnLocation);
+    public void spawn(PlayerRespawnEvent event) {
+        if (Objects.requireNonNull(config.getString("Spawn.WorldSpawn")).equals("true")) {
+            Player player = event.getPlayer();
+            // 获取世界出生点
+            Location spawnLocation = player.getWorld().getSpawnLocation();
+            // 传送玩家到出生点
+            player.teleport(spawnLocation);
+            player.sendMessage("已在世界出生点重生！");
+        }
     }
 }

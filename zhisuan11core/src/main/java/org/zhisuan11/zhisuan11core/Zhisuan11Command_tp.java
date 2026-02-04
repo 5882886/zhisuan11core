@@ -41,7 +41,7 @@ public class Zhisuan11Command_tp implements CommandExecutor {
             double z = Double.parseDouble(args[3]);
             Location location = new Location(sendPlayer.getWorld(), x, y, z);
             //  /tp @s x y z
-            if (args[0].equals("@s")) {
+            if (args[0].equals("@s") || args[0].equals("@p")) {
                 sendPlayer.teleport(location);
                 sendPlayer.sendMessage("你已被传送至: " + x + ", " + y + ", " + z);
             }

@@ -26,7 +26,7 @@ public class JoinItem implements Listener {
         }
     }
 
-    public static void giveFirstJoinItems(Player player) {
+    public void giveFirstJoinItems(Player player) {
         // 获取first-join-item的节点内容并返回一个列表itemsConfig
         // List<?> 代表列表中包含多种数据类型
         List<?> itemsConfig = Zhisuan11core.main.getConfig().getList("FirstJoinItems");
@@ -34,7 +34,7 @@ public class JoinItem implements Listener {
     }
 
     // 给予物品
-    private static void giveItems(Player player, List<?> itemsConfig) {
+    private void giveItems(Player player, List<?> itemsConfig) {
         // 空情况判断
         if (itemsConfig == null || itemsConfig.isEmpty()) {
             player.sendMessage("初始物品为空！");
@@ -73,7 +73,7 @@ public class JoinItem implements Listener {
         }
     }
 
-    private static ItemStack createItemFromMap(Map<String, Object> itemMap) {
+    private ItemStack createItemFromMap(Map<String, Object> itemMap) {
         try {
             // 获取材质
             Object materialObj = itemMap.get("material");
@@ -124,15 +124,15 @@ public class JoinItem implements Listener {
                 if (loreObj != null) {
                     List<String> lore = new ArrayList<>();
 
-                    if (loreObj instanceof List) {
+                    if (loreObj instanceof List<?> loreList) {
                         // 如果lore是列表格式
-                        List<?> loreList = (List<?>) loreObj;
                         for (Object lineObj : loreList) {
                             if (lineObj != null) {
                                 lore.add(ChatColor.translateAlternateColorCodes('&', lineObj.toString()));
                             }
                         }
-                    } else if (loreObj instanceof String) {
+                    }
+                    else if (loreObj instanceof String) {
                         // 如果lore是单行字符串
                         lore.add(ChatColor.translateAlternateColorCodes('&', loreObj.toString()));
                     }
