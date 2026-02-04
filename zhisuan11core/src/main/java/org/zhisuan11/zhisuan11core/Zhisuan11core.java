@@ -30,16 +30,18 @@ public final class Zhisuan11core extends JavaPlugin {
 
         Objects.requireNonNull(Bukkit.getPluginCommand("zhisuan11")).setExecutor(new Zhisuan11Command_main());
         Objects.requireNonNull(Bukkit.getPluginCommand("tp")).setExecutor(new Zhisuan11Command_tp());
+
         Objects.requireNonNull(Bukkit.getPluginCommand("zhisuan11")).setTabCompleter(new Zhisuan11TabCompleter());
+
         Bukkit.getPluginManager().registerEvents(new JoinInfo(), this);
         Bukkit.getPluginManager().registerEvents(new JoinItem(), this);
 
 
-        //生成配置文件
+        // 生成配置文件
         saveDefaultConfig();
 
 
-        //实现定时循环发送服务器公告
+        // 实现定时循环发送服务器公告
         List<String> announcement = getConfig().getStringList("BroadCast.content");
         String bool = getConfig().getString("BroadCast.enabled");
         int interval = getConfig().getInt("BroadCast.interval");

@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+// 玩家重生逻辑
 public class Respawn implements Listener {
     @EventHandler
 
@@ -13,7 +14,6 @@ public class Respawn implements Listener {
 
         // 获取世界出生点
         Location spawnLocation = event.getEntity().getWorld().getSpawnLocation();
-
         // 传送玩家到出生点
         event.getEntity().teleport(spawnLocation);
     }
