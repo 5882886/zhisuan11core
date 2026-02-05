@@ -38,11 +38,13 @@ public final class Zhisuan11core extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new JoinInfo(), this);
         Bukkit.getPluginManager().registerEvents(new JoinItem(), this);
         Bukkit.getPluginManager().registerEvents(new Respawn(), this);
-        Bukkit.getPluginManager().registerEvents(new MainMenuClick(), this);
+        Bukkit.getPluginManager().registerEvents(new GameMenuClick(), this);
 
         // 生成配置文件
         saveDefaultConfig();
 
+        ServerUpdate updater = new ServerUpdate();
+        updater.runTaskTimer(this, 0L, 20L);
 
         // 实现定时循环发送服务器公告
         List<String> announcement = getConfig().getStringList("BroadCast.content");

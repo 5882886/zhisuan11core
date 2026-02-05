@@ -10,4 +10,4 @@ Recently, I've made a simple PCL menu. If you like it, please copy the path and 
 
 Actually, everyone can use them. However, in considerarion of the fact that they are customized for my own class, I strongly recommand that you should make some small adjustments to enjoy the best compatibility. If you have any suggestion, please do not hesitate to share!
 
-Click [here](/PCL-menu/index.html) to view the PCL-menu page!
+Click [here](https://5882886.github.io/My-Minecraft-Server/PCL-menu/index.html) to view the PCL-menu page!

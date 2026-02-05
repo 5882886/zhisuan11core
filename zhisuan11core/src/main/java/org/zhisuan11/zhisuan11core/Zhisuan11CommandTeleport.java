@@ -35,6 +35,7 @@ public class Zhisuan11CommandTeleport implements CommandExecutor {
             }
         }
 
+        // /zs targetPlayer x y z
         if (args.length == 4) {
             double x = Double.parseDouble(args[1]);
             double y = Double.parseDouble(args[2]);

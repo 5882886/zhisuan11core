@@ -9,7 +9,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-
 import java.util.List;
 import static org.bukkit.Bukkit.getServer;
 
@@ -26,52 +25,54 @@ public class Zhisuan11CommandMain implements CommandExecutor {
             player = (Player) sender;
         }
 
-        //   指令/zs help
-        if (args.length == 1 && args[0].equals("help")){
+        //   /zs help
+        if (args[0].equals("help") && args.length == 1){
             sender.sendMessage(ChatColor.DARK_GRAY + "插件帮助");
             sender.sendMessage(ChatColor.BLUE + "/zs info   - 插件信息");
             sender.sendMessage(ChatColor.BLUE + "/zs reload - 重载插件配置文件");
             return true;
         }
 
-        //   指令/zs info
-        if (args.length == 1 && args[0].equals("info")){
-            sender.sendMessage(ChatColor.DARK_GRAY + "插件信息");
+        //   /zs info
+        if (args[0].equals("info") && args.length == 1){
+            sender.sendMessage(ChatColor.DARK_GRAY + "=============================================");
             sender.sendMessage(ChatColor.BLUE + "- 本插件为天津大学2024级智算11班服务器插件");
             sender.sendMessage(ChatColor.BLUE + "- 如遇bug请至Github或\"11班MC\"微信群提交");
-            sender.sendMessage(ChatColor.DARK_GRAY + "- Github仓库：https://github.com/5882886/My-Minecraft-Server");
+            sender.sendMessage(ChatColor.BLUE + "- Github仓库：https://github.com/5882886/My-Minecraft-Server");
+            sender.sendMessage(ChatColor.DARK_GRAY + "=============================================");
             return true;
         }
 
+        //  /zs broadcast ...
         if (args[0].equals("broadcast")) {
-            if (args.length == 1) {
-                sender.sendMessage("用法：/zs broadcast …");
-                return true;
-            }
-            //  指令/zs broadcast send
-            else if (args.length == 2) {
+            //  /zs broadcast send
+            if (args[1].equals("send") && args.length == 2) {
                 List<String> announcement = config.getStringList("BroadCast.content");
                 for (String message : announcement) {
                     message = ChatColor.translateAlternateColorCodes('&', message);
                     getServer().broadcastMessage(message);
                 }
                 return true;
+            } else {
+                sender.sendMessage("您输入的命令可能有误！");
             }
         }
 
-        // /zs menu open
-        if (args.length == 2 && args[0].equals("menu")) {
-            if (args[1].equals("open")) {
+        //  /zs menu ...
+        if (args[0].equals("menu")) {
+            //  /zs menu open
+            if (args[1].equals("open") && args.length == 2) {
                 if (player != null) {
-                    MainMenu mainMenu = new MainMenu();
+                    GameMenu mainMenu = new GameMenu();
                     Inventory menu = mainMenu.createMenu(player);
-                    mainMenu.openMenu(player, menu);
+                    GameMenu.openMenu(player, menu);
                     return true;
                 }
             }
         }
 
-        if (args.length == 1 && args[0].equals("setspawn")) {
+        //  /zs setspawn
+        if (args[0].equals("setspawn") && args.length == 1) {
             if (player != null) {
                 Location location = player.getLocation();
                 player.getWorld().setSpawnLocation(location.getBlockX(), location.getBlockY(), location.getBlockZ());
@@ -80,11 +81,19 @@ public class Zhisuan11CommandMain implements CommandExecutor {
             return true;
         }
 
-        // 指令 /zs kit targetPlayer
-        else if (args.length == 2 && args[0].equals("kit")) {
-            Player targetPlayer = null;
-            if (player != null) {
-                targetPlayer = player.getServer().getPlayer(args[1]);
+        //  /zs kit ...
+        if (args[0].equals("kit")) {
+            Player targetPlayer;
+            // /zs kit targetPlayer
+            if (args.length == 2) {
+                if (player != null) {
+                    targetPlayer = player.getServer().getPlayer(args[1]);
+                } else {
+                    sender.sendMessage("目标玩家不存在！");
+                    return false;
+                }
+            } else {
+                targetPlayer = player;
             }
             // JoinItem 不是静态类，需要先创建实例再调用
             JoinItem joinItem = new JoinItem();
@@ -92,8 +101,8 @@ public class Zhisuan11CommandMain implements CommandExecutor {
             return true;
         }
 
-        //   指令/zs reload
-        if (args.length == 1 && args[0].equals("reload")) {
+        //  /zs reload
+        if (args[0].equals("reload") && args.length == 1) {
             sender.sendMessage(ChatColor.BLUE + "[zhisuan11core]正在重载插件配置……");
             Zhisuan11core.main.reloadConfig();
             sender.sendMessage(ChatColor.BLUE + "[zhisuan11core]配置文件重载完成！");
@@ -101,11 +110,8 @@ public class Zhisuan11CommandMain implements CommandExecutor {
         }
 
 
-        else {
-            sender.sendMessage("欢迎使用zhisuan11core MC服务器插件！");
-            sender.sendMessage("您输入的命令可能有误！");
-        }
-
+        sender.sendMessage("欢迎使用zhisuan11core MC服务器插件！");
+        sender.sendMessage("您输入的命令可能有误！");
         return false;
     }
 }

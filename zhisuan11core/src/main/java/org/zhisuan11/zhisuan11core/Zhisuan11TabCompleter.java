@@ -39,7 +39,7 @@ public class Zhisuan11TabCompleter implements TabCompleter {
             }
         }
 
-        if (command.getName().equalsIgnoreCase("tp")) {
+        else if (command.getName().equalsIgnoreCase("tp")) {
             if (args.length == 1) {
                 List<String> completions = new ArrayList<>();
                 completions.add("@s");

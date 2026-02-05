@@ -7,7 +7,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
-public class MainMenuClick implements Listener {
+public class GameMenuClick implements Listener {
 
     @EventHandler
     // 菜单点击事件
@@ -18,16 +18,19 @@ public class MainMenuClick implements Listener {
             if (view.getTitle().equals("主菜单")) {
                 // 防止玩家移动物品
                 event.setCancelled(true);
-
+                // 获取点击物品
                 ItemStack clicked = event.getCurrentItem();
                 if (clicked != null) {
                     switch (clicked.getType()) {
                         case PLAYER_HEAD:
-                            break;
                         case COMPASS:
                             player.teleport(player.getWorld().getSpawnLocation());
                             player.sendMessage("已传送至世界出生点");
                             break;
+                        case REDSTONE_BLOCK:
+                            player.sendMessage("插件作者：RunicDolphin806");
+                            player.sendMessage("仓库地址：https://github.com/5882886/My-Minecraft-Server");
+                            GameMenu.closeMenu(player);
                         default:
                             break;
                     }
