@@ -3,13 +3,10 @@ package org.zhisuan11.zhisuan11core;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scoreboard.Criteria;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.*;
 
 // 服务器刷新操作
-public class ServerUpdate extends BukkitRunnable {
+public class SidebarUpdate extends BukkitRunnable {
 
     Sidebar sidebar = new Sidebar();
 

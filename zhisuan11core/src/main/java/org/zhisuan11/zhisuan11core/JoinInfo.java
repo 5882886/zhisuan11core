@@ -17,16 +17,16 @@ public class JoinInfo implements Listener {
         String playerName = player.getName();
 
         //向加入的玩家发送一个标题
-        String title = Zhisuan11core.main.getConfig().getString("JoinTitle.title", "&b欢迎来到智算11班MC服务器！");
+        String title = Zhisuan11core.main.getConfig().getString("JoinTitle.title", "&b欢迎来到服务器！");
         String subtitle = Zhisuan11core.main.getConfig().getString("JoinTitle.subtitle", "&b祝您游玩愉快!");
 
         //解析MC的颜色代码
         title = ChatColor.translateAlternateColorCodes('&', title);
         subtitle = ChatColor.translateAlternateColorCodes('&', subtitle);
 
-        int fadeIn = Zhisuan11core.main.getConfig().getInt("JoinTitle.fade-in", 10);
-        int stay = Zhisuan11core.main.getConfig().getInt("JoinTitle.stay", 40);
-        int fadeOut = Zhisuan11core.main.getConfig().getInt("JoinTitle.fade-out", 10);
+        int fadeIn = Zhisuan11core.main.getConfig().getInt("JoinTitle.fade-in", 1);
+        int stay = Zhisuan11core.main.getConfig().getInt("JoinTitle.stay", 5);
+        int fadeOut = Zhisuan11core.main.getConfig().getInt("JoinTitle.fade-out", 1);
 
         player.sendTitle(title, subtitle, fadeIn * 20, stay * 20, fadeOut * 20);
 

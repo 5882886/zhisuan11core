@@ -11,17 +11,18 @@ public class Sidebar {
 
     // 创建新侧边栏
     public void createSidebar(Player player) {
-        Scoreboard sidebar = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
-        Objective objective = sidebar.registerNewObjective(
+        Scoreboard scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
+        Objective objective = scoreboard.registerNewObjective(
                 "ServerInfo",
                 Criteria.DUMMY,
                 Zhisuan11core.main.getConfig().getString("Sidebar.title", "§6§l服务器信息")
         );
         // 设置显示位置
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
         updateSidebar(objective, player);
         // 玩家显示侧边栏
-        player.setScoreboard(sidebar);
+        player.setScoreboard(scoreboard);
     }
 
     // 侧边栏内容封装函数
@@ -33,7 +34,7 @@ public class Sidebar {
     // 侧边栏生成
     public void updateSidebar(Objective objective, Player player) {
         setSidebar(objective, "§9", 9);
-        setSidebar(objective, "§7欢迎，§a" + player.getName() + " !", 8);
+        setSidebar(objective, "§7欢迎，§a" + player.getName() + " ！", 8);
         setSidebar(objective, "§7", 7);
         setSidebar(objective, "§7在线玩家: §a" + Bukkit.getOnlinePlayers().size(), 6);
         setSidebar(objective, "§5", 5);

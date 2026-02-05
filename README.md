@@ -6,6 +6,12 @@ This repository stores my Minecraft project, including a simple spiogt plugin ba
 
 Recently, I've made a simple PCL menu. If you like it, please copy the path and paste it on the PCL custom menu settings.
 
+| Repositories | Type |
+|--------------|------|
+| zhisuan11core | Plugin |
+| zhisuan_eleven_core | Mod |
+| PCL-menu | *Just as the name suggests* |
+
 ## Can I use it?
 
 Actually, everyone can use them. However, in considerarion of the fact that they are customized for my own class, I strongly recommand that you should make some small adjustments to enjoy the best compatibility. If you have any suggestion, please do not hesitate to share!
