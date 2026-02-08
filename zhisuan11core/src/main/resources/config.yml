@@ -4,12 +4,12 @@
 
 # 服务器侧边栏
 Sidebar:
-    title: "§6§l智算11班MC服务器"
-    ip: "www.rtotjn4is.nyat.app"
+    title: "§6§lMC服务器"
+    ip: "www.example.com"
 
 # 设置加入游戏时的标题内容和样式
 JoinTitle:
-    title: "&b欢迎来到智算11班MC服务器！"
+    title: "&b欢迎来到MC服务器！"
     subtitle: "&b祝您游玩愉快!"
     fade-in: 1
     stay: 5
@@ -17,10 +17,7 @@ JoinTitle:
 
 # 设置加入游戏时发送给玩家的信息
 JoinMessage:
-    - " &6&l %player%, 欢迎来到智算11班MC服务器！ "
-    - " &6&l 紧密团结在以江书记为核心的团支部周围！"
-    - " &6&l 如果遇到Bug请至Github或微信群中留言。"
-    - " &6&l Github仓库：https://github.com/5882886/My-Minecraft-Server "
+    - " 欢迎来到MC服务器！ "
 
 # 设置服务器公告
 BroadCast:
@@ -39,26 +36,13 @@ BroadCast:
 
 # 初始物品套装
 FirstJoinItems:
-    - material: DIAMOND
-      amount: 1
-      name: "&a钻石"
-      lore:
-        - "&7新手礼包!"
-    - material: GOLD_INGOT
-      amount: 5
-      name: "&6金锭"
-      lore:
-        - "&7新手礼包!"
-    - material: DIAMOND_SWORD
-      amount: 1
-      name: "&7石剑"
-      lore:
-        - "&7新手礼包!"
-    - material: WOODEN_AXE
+    - material: STONE_AXE
       amount: 1
       name: "&e石镐"
       lore:
-        - "&7新手礼包!"
+        - "&7新手礼包"
+        - "不用做木镐啦！"
+
 
 ##############################
 ##         服务器规则类      ##
@@ -66,4 +50,7 @@ FirstJoinItems:
 
 # 设置玩家重生位置
 Spawn:
-    WorldSpawn: true   # 设置为 true 时启用世界出生点
+    WorldSpawn: true    # 设置为 true 时启用世界出生点
+
+Teleport:
+    Cooldown: 5         # 传送命令冷却时间（单位：秒）

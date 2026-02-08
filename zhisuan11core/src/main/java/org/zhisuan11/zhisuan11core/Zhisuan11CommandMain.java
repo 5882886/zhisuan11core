@@ -5,12 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-
-import java.util.List;
-import static org.bukkit.Bukkit.getServer;
 
 
 public class Zhisuan11CommandMain implements CommandExecutor {
@@ -18,7 +14,6 @@ public class Zhisuan11CommandMain implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        FileConfiguration config = Zhisuan11core.main.getConfig();
         Player player = null;
 
         if (sender instanceof Player) {
@@ -46,16 +41,19 @@ public class Zhisuan11CommandMain implements CommandExecutor {
         //  /zs broadcast ...
         if (args[0].equals("broadcast")) {
             //  /zs broadcast send
-            if (args[1].equals("send") && args.length == 2) {
-                List<String> announcement = config.getStringList("BroadCast.content");
-                for (String message : announcement) {
-                    message = ChatColor.translateAlternateColorCodes('&', message);
-                    getServer().broadcastMessage(message);
+            if (args[1].equals("send")) {
+                if (args.length == 2) {
+                    Broadcast broadcast = new Broadcast();
+                    broadcast.SendBroadcast();
+                    return true;
+                } else {
+                    sender.sendMessage("您输入的参数过多！");
+                    return false;
                 }
-                return true;
-            } else {
-                sender.sendMessage("您输入的命令可能有误！");
             }
+
+            sender.sendMessage("用法：/zs broadcast send");
+            sender.sendMessage("您输入的命令可能有误！");
         }
 
         //  /zs menu ...
@@ -108,7 +106,6 @@ public class Zhisuan11CommandMain implements CommandExecutor {
             sender.sendMessage(ChatColor.BLUE + "[zhisuan11core]配置文件重载完成！");
             return true;
         }
-
 
         sender.sendMessage("欢迎使用zhisuan11core MC服务器插件！");
         sender.sendMessage("您输入的命令可能有误！");

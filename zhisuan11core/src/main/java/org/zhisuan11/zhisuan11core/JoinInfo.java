@@ -12,15 +12,15 @@ public class JoinInfo implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
 
-        //获取玩家名称信息
+        // 获取玩家名称信息
         var player = event.getPlayer();
         String playerName = player.getName();
 
-        //向加入的玩家发送一个标题
+        // 向加入的玩家发送一个标题
         String title = Zhisuan11core.main.getConfig().getString("JoinTitle.title", "&b欢迎来到服务器！");
         String subtitle = Zhisuan11core.main.getConfig().getString("JoinTitle.subtitle", "&b祝您游玩愉快!");
 
-        //解析MC的颜色代码
+        // 解析MC的颜色代码
         title = ChatColor.translateAlternateColorCodes('&', title);
         subtitle = ChatColor.translateAlternateColorCodes('&', subtitle);
 
@@ -31,8 +31,8 @@ public class JoinInfo implements Listener {
         player.sendTitle(title, subtitle, fadeIn * 20, stay * 20, fadeOut * 20);
 
 
-        //向加入的玩家发送信息
-        //创建信息列表
+        // 向加入的玩家发送信息
+        // 创建信息列表
         List<String> joinMessages = Zhisuan11core.main.getConfig().getStringList("JoinMessage");
 
         for (String message : joinMessages) {

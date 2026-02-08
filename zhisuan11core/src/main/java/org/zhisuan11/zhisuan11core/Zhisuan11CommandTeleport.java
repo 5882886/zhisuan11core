@@ -26,8 +26,8 @@ public class Zhisuan11CommandTeleport implements CommandExecutor {
         // 冷却检查
         UUID uuid = sendPlayer.getUniqueId();
         if (cooldowns.containsKey(uuid)) {
-            // 5秒冷却
-            long COOLDOWN_TIME = 5 * 1000;
+            // 30秒冷却
+            long COOLDOWN_TIME = Zhisuan11core.main.getConfig().getLong("Teleport.Cooldown", 30) * 1000;
             long timeLeft = (cooldowns.get(uuid) + COOLDOWN_TIME) - System.currentTimeMillis();
             if (timeLeft > 0) {
                 sendPlayer.sendMessage("§c请等待 " + (timeLeft / 1000) + " 秒后再使用传送!");

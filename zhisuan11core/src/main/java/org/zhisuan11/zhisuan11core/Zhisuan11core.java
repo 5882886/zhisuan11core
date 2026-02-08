@@ -1,16 +1,14 @@
 package org.zhisuan11.zhisuan11core;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
 import java.util.Objects;
 
 
 public final class Zhisuan11core extends JavaPlugin {
 
-    //全局变量代表主类
+    // 全局变量代表主类
     static Zhisuan11core main;
 
     @Override
@@ -46,27 +44,19 @@ public final class Zhisuan11core extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        SidebarUpdate updater = new SidebarUpdate();
+        // 侧边栏
+        Sidebar updater = new Sidebar();
         updater.runTaskTimer(this, 0L, 20L);
 
-        // 实现定时循环发送服务器公告
-        List<String> announcement = getConfig().getStringList("BroadCast.content");
-        String bool = getConfig().getString("BroadCast.enabled");
-        int interval = getConfig().getInt("BroadCast.interval");
-
-        if (bool != null && bool.equals("true")) {
-            getServer().getScheduler().scheduleSyncRepeatingTask(this, () -> {
-                for (String message : announcement) {
-                    message = ChatColor.translateAlternateColorCodes('&', message);
-                    getServer().broadcastMessage(message);
-                }
-            }, 20L * 15, 20L * interval);   // 加载插件15秒后发送第一次公告，此后每interval秒发送一次
-        }
+        // 定时发送服务器公告
+        Broadcast broadcast = new Broadcast();
+        broadcast.runTaskTimer(this, 20L * 15, 20L * broadcast.interval);
 
     }
 
     @Override
     public void onDisable() {
+
         // Plugin shutdown logic
         getLogger().info("感谢您使用智算11班服务器插件！");
         getLogger().info("插件仓库：https://github.com/5882886/My-Minecraft-Server！");
@@ -78,5 +68,6 @@ public final class Zhisuan11core extends JavaPlugin {
         getLogger().info("███████╗██║░░██║██║██████╔╝╚██████╔╝██║░░██║██║░╚███║███████╗███████╗");
         getLogger().info("╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝╚══════╝");
         getLogger().info(" ");
+
     }
 }

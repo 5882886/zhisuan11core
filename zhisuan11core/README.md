@@ -26,13 +26,13 @@ api 版本是 1.20.1。
 | `Zhisuan11CommandMain.java`     | 游戏内核心命令             |
 | `Zhisuan11CommandTeleport.java` | 游戏内传送命令（接管原版 tp 指令） |
 | `Zhisuan11TabCompleter.java`    | 游戏内命令输入补全           |
+| `Broadcast.java`                | 定时发送公告              |
 | `JoinInfo.java`                 | 在玩家加入时发送标题和聊天信息     |
 | `JoinItem.java`                 | 向玩家发送物品             |
 | `Respawn.java`                  | 重设出生点               |
 | `GameMenu.java`                 | 游戏内菜单核心文件           |
 | `GameMenuClick.java`            | 游戏内菜单点击事件           |
 | `Sidebar.java`                  | 游戏内侧边栏              |
-| `ServerUpdate.java`             | 事件刷新                |
 
 ## 更新日志
 
