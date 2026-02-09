@@ -61,9 +61,9 @@ public class Zhisuan11CommandMain implements CommandExecutor {
             //  /zs menu open
             if (args[1].equals("open") && args.length == 2) {
                 if (player != null) {
-                    GameMenu mainMenu = new GameMenu();
-                    Inventory menu = mainMenu.createMenu(player);
-                    GameMenu.openMenu(player, menu);
+                    GameMenu gameMenu = new GameMenu();
+                    Inventory MainMenu = gameMenu.createMainMenu(player);
+                    GameMenu.openMenu(player, MainMenu);
                     return true;
                 }
             }

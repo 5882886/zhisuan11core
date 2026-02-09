@@ -6,29 +6,47 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.Arrays;
 
 public class GameMenu {
 
     private final Inventory MainMenu = Bukkit.createInventory(null, 27, "主菜单");
+    private final Inventory ServerRule = Bukkit.createInventory(null, 27, "服务器守则");
 
-    public Inventory createMenu(Player player) {
-        // 玩家信息
-        AddItemToMenu(MainMenu, 0, Material.PLAYER_HEAD, "玩家信息",
-                "§7点击查看您的玩家信息",
-                "",
-                "§e玩家: §f" + player.getName(),
-                "§e等级: §f" + player.getLevel(),
-                "§e生命值: §f" + String.format("%.1f", player.getHealth()) + "❤");
+    public Inventory createMainMenu(Player player) {
+        // 服务器守则
+        AddItemToMenu(MainMenu, 0, Material.DIAMOND, "服务器守则", "§7点击查看服务器守则");
         // 回城按钮
-        AddItemToMenu(MainMenu, 1, Material.COMPASS, "回城按钮",
-                "§7点击回到世界出生点");
+        AddItemToMenu(MainMenu, 1, Material.COMPASS, "回城按钮", "§7点击回到世界出生点");
 
+        // 玩家信息（左下角）
+        MainMenu.setItem(18, createPlayerHead(player));
+        // 插件信息（右下角）
         AddItemToMenu(MainMenu, 26, Material.REDSTONE_BLOCK, "关于插件",
                 "点击访问插件仓库");
 
         return MainMenu;
+    }
+
+    public Inventory createServerRule(Player player) {
+        // 服务器守则内容
+        AddItemToMenu(ServerRule, 0, Material.PAPER, "守则",
+                "----------",
+                "遵守法律法规",
+                "禁止炸服等恶意破坏服务器的行为！");
+
+        // 玩家信息（左下角）
+        ServerRule.setItem(18, createPlayerHead(player));
+        // 返回按钮（底部居中）
+        AddItemToMenu(ServerRule, 22, Material.BARRIER, "返回");
+        // 插件信息（右下角）
+        AddItemToMenu(ServerRule, 26, Material.REDSTONE_BLOCK, "关于插件",
+                "点击访问插件仓库");
+
+        return ServerRule;
     }
 
     // 向菜单中添加物品
@@ -45,6 +63,27 @@ public class GameMenu {
         itemStack.setItemMeta(itemMeta);
         menu.setItem(slot, itemStack);
     }
+
+    // 创建玩家头像
+    public ItemStack createPlayerHead(Player player) {
+        ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
+
+        if (skullMeta != null) {
+            skullMeta.setOwningPlayer(player);
+            skullMeta.setDisplayName(player.getName());
+            skullMeta.setLore(Arrays.asList(
+                "§7点击查看您的玩家信息",
+                "",
+                "§e玩家: §f" + player.getName(),
+                "§e等级: §f" + player.getLevel(),
+                "§e生命值: §f" + String.format("%.1f", player.getHealth()) + "❤"
+            ));
+            head.setItemMeta(skullMeta);
+        }
+        return head;
+    }
+
 
     // 打开主菜单
     public static void openMenu(Player player, Inventory menu) {
