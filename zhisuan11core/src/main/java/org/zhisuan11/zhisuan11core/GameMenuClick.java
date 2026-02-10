@@ -15,54 +15,53 @@ public class GameMenuClick implements Listener {
     public void MenuClick(InventoryClickEvent event) {
         GameMenu gameMenu = new GameMenu();
 
-        if ((event.getWhoClicked() instanceof Player player)) {
-            InventoryView view = event.getView();
+        if (!(event.getWhoClicked() instanceof Player player)) return;
 
-            // 获取点击物品
-            ItemStack clicked = event.getCurrentItem();
-            if (clicked == null) return;
+        InventoryView view = event.getView();
 
-            if (view.getTitle().equals("主菜单")) {
-                // 防止玩家移动物品
-                event.setCancelled(true);
-                switch (clicked.getType()) {
-                    case DIAMOND:
-                        Inventory ServerRule = gameMenu.createServerRule(player);
-                        GameMenu.closeMenu(player);
-                        GameMenu.openMenu(player, ServerRule);
-                        break;
-                    case COMPASS:
-                        player.teleport(player.getWorld().getSpawnLocation());
-                        player.sendMessage("已传送至世界出生点");
-                        break;
-                    case PLAYER_HEAD:
-                    case REDSTONE_BLOCK:
-                        player.sendMessage("插件作者：RunicDolphin806");
-                        player.sendMessage("仓库地址：https://github.com/5882886/My-Minecraft-Server");
-                        GameMenu.closeMenu(player);
-                    default:
-                        break;
-                }
-            } else if (view.getTitle().equals("服务器守则")) {
-                // 防止玩家移动物品
-                event.setCancelled(true);
-                switch (clicked.getType()) {
-                    case BARRIER:
-                        GameMenu.closeMenu(player);
-                        Inventory MainMenu = gameMenu.createMainMenu(player);
-                        GameMenu.openMenu(player, MainMenu);
-                        break;
-                    case REDSTONE_BLOCK:
-                        player.sendMessage("插件作者：RunicDolphin806");
-                        player.sendMessage("仓库地址：https://github.com/5882886/My-Minecraft-Server");
-                        GameMenu.closeMenu(player);
-                        break;
-                    default:
-                        break;
+        // 获取点击物品
+        ItemStack clicked = event.getCurrentItem();
 
-                }
+        // 点击为空，返回
+        if (clicked == null) return;
+        if (view.getTitle().equals("主菜单")) {
+            // 防止玩家移动物品
+            event.setCancelled(true);
+            switch (clicked.getType()) {
+                case BOOK:
+                    Inventory ServerRule = gameMenu.createServerRule(player);
+                    GameMenu.closeMenu(player);
+                    GameMenu.openMenu(player, ServerRule);
+                    break;
+                case COMPASS:
+                    player.teleport(player.getWorld().getSpawnLocation());
+                    player.sendMessage("已传送至世界出生点");
+                    break;
+                case PLAYER_HEAD:
+                case REDSTONE_BLOCK:
+                    player.sendMessage("插件作者：RunicDolphin806");
+                    player.sendMessage("仓库地址：https://github.com/5882886/My-Minecraft-Server");
+                    GameMenu.closeMenu(player);
+                default:
+                    break;
+            }
+        } else if (view.getTitle().equals("服务器守则")) {
+            // 防止玩家移动物品
+            event.setCancelled(true);
+            switch (clicked.getType()) {
+                case BARRIER:
+                    GameMenu.closeMenu(player);
+                    Inventory MainMenu = gameMenu.createMainMenu(player);
+                    GameMenu.openMenu(player, MainMenu);
+                    break;
+                case REDSTONE_BLOCK:
+                    player.sendMessage("插件作者：RunicDolphin806");
+                    player.sendMessage("仓库地址：https://github.com/5882886/My-Minecraft-Server");
+                    GameMenu.closeMenu(player);
+                    break;
+                default:
+                    break;
             }
         }
-
     }
 }

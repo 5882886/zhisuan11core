@@ -7,7 +7,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.Arrays;
 
@@ -16,9 +15,10 @@ public class GameMenu {
     private final Inventory MainMenu = Bukkit.createInventory(null, 27, "主菜单");
     private final Inventory ServerRule = Bukkit.createInventory(null, 27, "服务器守则");
 
+    // 主菜单界面
     public Inventory createMainMenu(Player player) {
         // 服务器守则
-        AddItemToMenu(MainMenu, 0, Material.DIAMOND, "服务器守则", "§7点击查看服务器守则");
+        AddItemToMenu(MainMenu, 0, Material.BOOK, "服务器守则", "§7点击查看服务器守则");
         // 回城按钮
         AddItemToMenu(MainMenu, 1, Material.COMPASS, "回城按钮", "§7点击回到世界出生点");
 
@@ -31,6 +31,7 @@ public class GameMenu {
         return MainMenu;
     }
 
+    // 服务器守则界面
     public Inventory createServerRule(Player player) {
         // 服务器守则内容
         AddItemToMenu(ServerRule, 0, Material.PAPER, "守则",
@@ -51,7 +52,7 @@ public class GameMenu {
 
     // 向菜单中添加物品
     // String... 类型可以一次性添加多个字符串，但必须作为最后一个参数
-    public void AddItemToMenu(Inventory menu, int slot, Material material, String itemName, String... itemLore) {
+    private void AddItemToMenu(Inventory menu, int slot, Material material, String itemName, String... itemLore) {
         ItemStack itemStack = new ItemStack(material);
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta != null) {
@@ -65,7 +66,7 @@ public class GameMenu {
     }
 
     // 创建玩家头像
-    public ItemStack createPlayerHead(Player player) {
+    private ItemStack createPlayerHead(Player player) {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) head.getItemMeta();
 
