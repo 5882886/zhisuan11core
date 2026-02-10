@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "zhisuan_eleven_core:tuan_hui",
+    "zhisuan_eleven_core:tuan_qi",
+    "zhisuan_eleven_core:academy_1",
+    "zhisuan_eleven_core:academy_2",
+    "zhisuan_eleven_core:zhisuan_eleven_icon"
+  ]
+}

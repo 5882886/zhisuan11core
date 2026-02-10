@@ -1,0 +1,18 @@
+{
+  "the_internationale": {
+    "sounds": [
+      {
+        "name": "zhisuan_eleven_core:the_internationale",
+        "stream": false
+      }
+    ]
+  },
+  "school_song": {
+    "sounds": [
+      {
+        "name": "zhisuan_eleven_core:school_song",
+        "stream": false
+      }
+    ]
+  }
+}

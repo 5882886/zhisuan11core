@@ -1,0 +1,14 @@
+"name": "patchouli.gui.lexicon.jbd_book",          //书籍名称，这里用的本地化键
+"landing_text": "patchouli.gui.lexicon.jbd_book.text",     //文本，这里用的本地化键
+"version": 1,   //书籍版本号
+"creative_tab": "kubejs:tab",  //书籍会被创建在哪个标签栏，我这里是kubejs的创造标签栏
+"use_resource_pack": true,
+"index_icon": "kubejs:textures/item/jobd_book.png",  //书籍里面总览的标签样式，没定义就是默认纹理
+"i18n": true,  //字面意思,启用本地化
+"nameplate_color": "FFAA00",   //一些关于颜色的设置，不必赘述
+"link_color": "00AAAA",
+"link_hover_color": "AA00AA",
+"show_progress": false,  //是否显示进度条
+"text_overflow_mode": "overflow",  //文本显示方法（特定版本后才能使用）
+"book_texture": "patchouli:textures/gui/book_cyan.png",   //书籍背景颜色
+"model": "kubejs:book_models"    //书籍模型（不一定是模型）

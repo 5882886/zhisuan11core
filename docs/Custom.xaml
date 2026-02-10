@@ -34,7 +34,7 @@
         <local:MyImage Height="50" HorizontalAlignment="Center" Margin="4,0,0,4"
             Source="https://dlink.host/1drv/aHR0cHM6Ly8xZHJ2Lm1zL2kvYy81Y2ZkYjY0NmNhMDRlNGI2L0VjX3ZMVFBTS0xsRnZuajFzWGRtdWlJQlYwMUZNUVFfeUhvTmRwWTYyZlE1NXc_ZT1lSXJmblA.png" />
         <TextBlock TextWrapping="Wrap" Margin="0,0,0,10" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"
-            Text="当前服务器周目：落幕曲1.4.6"/>
+            Text="当前服务器周目：落幕曲1.5.4"/>
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -61,11 +61,11 @@
                 Text="快捷启动" 
                 EventType="启动游戏" 
                 EventData="落幕曲|www.rtotjn4is.nyat.app" 
-                ToolTip="请先切换到“落幕曲”所在的游戏文件夹" />
+                ToolTip="请确保您的游戏实例名为“落幕曲”！" />
             <local:MyButton Grid.Column="1" Margin="0,10,10,0" Height="35" Padding="13,0,13,0"
                 Text="更新日志" 
                 EventType="打开帮助" 
-                EventData="https://5882886.github.io/My-Minecraft-Server/PCL-menu/Update/Update.json" 
+                EventData="https://5882886.github.io/My-Minecraft-Server/Update/Update.json" 
                 ToolTip="查看服务器上新内容！" />
         </Grid>
         

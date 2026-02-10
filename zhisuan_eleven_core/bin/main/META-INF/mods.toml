@@ -1,0 +1,33 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="Not specified"
+
+[[mods]]
+modId="zhisuan_eleven_core"
+version="1.0.0"
+displayName="ZhisuanElevenCore"
+displayURL="https://github.com/5882886/My-Minecraft-Sever"
+logoFile="logo.png"
+credits="Created using mod maker MCreator - https://mcreator.net/about"
+authors="RunicDolphin806, MCreator"
+description="A Minecraft mod designed for zhisuan11's server."
+
+# Start of user code block mod configuration
+
+[modproperties.zhisuan_eleven_core]
+catalogueImageIcon="catalogueImageIcon.png"
+
+# End of user code block mod configuration
+
+[[dependencies.zhisuan_eleven_core]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1]"
+ordering="AFTER"
+side="BOTH"
+
+
+
+
+# Start of user code block dependencies configuration
+# End of user code block dependencies configuration

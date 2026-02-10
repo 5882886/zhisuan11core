@@ -1,0 +1,23 @@
+{
+    "name": "patchouli.gui.lexicon.ultranium_gem_cell.name",   //本地化键
+    "icon": "kubejs:ultranium_gem_cell",   //图标
+    "category": "patchouli:kubejs_cells",  //这玩意的分类在哪，如你categorie文件夹里写的是kubejs_gems.json
+    "pages": [                                   //那这里也就是写patchouli:kubejs_gems
+        {
+            "type": "patchouli:spotlight",      //案例样式，见wiki
+            "item": {
+                "item": "kubejs:ultranium_gem_cell"      //内部展示图标
+            },
+            "text": "patchouli.gui.lexicon.ultranium_gem_cell.text"     //本地化键
+        },
+        {
+            "type": "patchouli:text",  //案例样式，见wiki
+            "text": "patchouli.gui.lexicon.ultranium_gem_cell"  //本地化键
+        }
+    ]
+}
+
+{
+    "patchouli.gui.lexicon.ultranium_gem_cell.name": "游戏手册",
+    "patchouli.gui.lexicon.ultranium_gem_cell.text": "欢迎来到智算11班公益养老服!"
+}
