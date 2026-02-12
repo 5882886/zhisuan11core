@@ -55,6 +55,11 @@ Spawn:
 Teleport:
     Cooldown: 5         # 传送命令冷却时间（单位：秒）
 
-
+# 这（应该）是一个大工程，之后再实现
 Quiz:
     interval: 900
+    content:
+        - Question: 选择A
+          Answer: A
+        - Question: 选择B
+          Answer: B

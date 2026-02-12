@@ -5,6 +5,7 @@ import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.zhisuan11.core.Zhisuan11core;
 
+
 public class Quiz extends BukkitRunnable {
 
     int interval = Zhisuan11core.main.getConfig().getInt("Quiz.interval", 900);
