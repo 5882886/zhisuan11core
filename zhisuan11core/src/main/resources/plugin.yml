@@ -1,13 +1,13 @@
 name: zhisuan11core
 version: '1.0'
-main: org.zhisuan11.zhisuan11core.Zhisuan11core
+main: org.zhisuan11.core.Zhisuan11core
 api-version: '1.20'
 authors: [RunicDolphin806]
 
 # 插件指令名
 commands:
     zhisuan11:
-        description: "欢迎指令"
+        description: "基础指令"
         permission: Zhisuan11.main
         aliases: zs
     tp:

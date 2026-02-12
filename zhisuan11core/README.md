@@ -8,6 +8,15 @@
 
 目前用于天津大学2024级智算11班MC服务器。
 
+## 功能
+
+- [x] 初始物品
+- [x] 简单公告
+- [x] 传送指令
+- [x] 主菜单
+- [x] 侧边栏
+- [ ] Quiz
+
 ## 兼容性
 
 api 版本是 1.20.1。
@@ -20,23 +29,45 @@ api 版本是 1.20.1。
 
 > 基本上所有文件均采用驼峰命名法
 
-| 文件名                             | 用途                  |
-|:--------------------------------|---------------------|
-| `Zhisuan11core.java`            | 主文件，插件启动标识，发送游戏内公告  |
-| `Zhisuan11CommandMain.java`     | 游戏内核心命令             |
-| `Zhisuan11CommandTeleport.java` | 游戏内传送命令（接管原版 tp 指令） |
-| `Zhisuan11TabCompleter.java`    | 游戏内命令输入补全           |
-| `Broadcast.java`                | 定时发送公告              |
-| `JoinInfo.java`                 | 在玩家加入时发送标题和聊天信息     |
-| `JoinItem.java`                 | 向玩家发送物品             |
-| `Respawn.java`                  | 重设出生点               |
-| `GameMenu.java`                 | 游戏内菜单核心文件           |
-| `GameMenuClick.java`            | 游戏内菜单点击事件           |
-| `Sidebar.java`                  | 游戏内侧边栏              |
+```
+├── src
+    ├── main
+        ├── java
+            ├── org.zhisuan11
+                ├── core（核心文件）
+                    ├── Zhisuan11core.java              # 主文件，插件启动标识
+                    ├── JoinInfo.java                   # 在玩家加入时发送标题和聊天信息
+                    ├── JoinItem.java                   # 向玩家发送物品
+                    ├── Sidebar.java                    # 游戏内侧边栏
+                    ├── Respawn.java                    # 重设出生点
+                    
+                ├── command（命令）
+                    ├── MainCommand.java                # 游戏内核心命令
+                    ├── TeleportCommand.java            # 游戏内传送命令（接管原版 tp 指令）
+                    ├── CommandTabCompleter.java        # 游戏内命令输入补全
+                    
+                ├── gui（游戏内菜单）
+                    ├── GameMenu.java                   # 游戏内菜单核心文件
+                    ├── GameMenuClick.java              # 游戏内菜单点击事件
+                        
+                ├── scheduled（定时事件）   
+                    ├── Broadcast.java                  # 发送公告
+                    ├── Schedule.java                   # 处理定时事件
+                    
+        ├── resources
+            ├── config.yml      # 配置文件
+            ├── plugin.yml      # 插件信息
+            
+    ├── build.gradle    # Gradle配置文件
+    ├── README.md
+```
+
 
 ## 更新日志
 
 ### 版本记录
+
+2026/02/12: 正式版 v1.1
 
 2026/02/04：正式版 v1.0
 
@@ -46,6 +77,7 @@ api 版本是 1.20.1。
 
 |     日期     | 更新内容        |
 |:----------:|-------------|
+| 2026-02-12 | 更新文件结构      |
 | 2026-02-09 | 插件菜单界面更新    |
 | 2026-02-05 | 新增游戏主菜单和侧边栏 |
 | 2026-02-04 | 更新传送模块和重生逻辑 |
