@@ -7,6 +7,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
+import org.zhisuan11.Zhisuan11core;
+import org.zhisuan11.scheduled.Quiz;
 
 public class GameMenuClick implements Listener {
 
@@ -24,6 +26,7 @@ public class GameMenuClick implements Listener {
 
         // 点击为空，返回
         if (clicked == null) return;
+
         if (view.getTitle().equals("主菜单")) {
             // 防止玩家移动物品
             event.setCancelled(true);
@@ -37,11 +40,11 @@ public class GameMenuClick implements Listener {
                     player.teleport(player.getWorld().getSpawnLocation());
                     player.sendMessage("已传送至世界出生点");
                     break;
-                case PLAYER_HEAD:
                 case REDSTONE_BLOCK:
                     player.sendMessage("插件作者：RunicDolphin806");
                     player.sendMessage("仓库地址：https://github.com/5882886/My-Minecraft-Server");
                     GameMenu.closeMenu(player);
+                    break;
                 default:
                     break;
             }
@@ -58,6 +61,29 @@ public class GameMenuClick implements Listener {
                     player.sendMessage("插件作者：RunicDolphin806");
                     player.sendMessage("仓库地址：https://github.com/5882886/My-Minecraft-Server");
                     GameMenu.closeMenu(player);
+                    break;
+                default:
+                    break;
+            }
+        } else if (view.getTitle().equals("Quiz")) {
+            event.setCancelled(true);
+            Quiz quiz = new Quiz();
+            switch (clicked.getType()) {
+                case RED_WOOL:
+                    Zhisuan11core.main.response = "A";
+                    quiz.check(player);
+                    break;
+                case YELLOW_WOOL:
+                    Zhisuan11core.main.response = "B";
+                    quiz.check(player);
+                    break;
+                case BLUE_WOOL:
+                    Zhisuan11core.main.response = "C";
+                    quiz.check(player);
+                    break;
+                case GREEN_WOOL:
+                    Zhisuan11core.main.response = "D";
+                    quiz.check(player);
                     break;
                 default:
                     break;

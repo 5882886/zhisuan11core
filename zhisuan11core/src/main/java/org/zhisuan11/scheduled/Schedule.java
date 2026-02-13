@@ -2,7 +2,7 @@ package org.zhisuan11.scheduled;
 
 import org.bukkit.plugin.Plugin;
 import org.zhisuan11.core.Sidebar;
-import org.zhisuan11.core.Zhisuan11core;
+import org.zhisuan11.Zhisuan11core;
 
 public class Schedule {
 

@@ -1,6 +1,6 @@
 name: zhisuan11core
-version: '1.0'
-main: org.zhisuan11.core.Zhisuan11core
+version: '1.1'
+main: org.zhisuan11.Zhisuan11core
 api-version: '1.20'
 authors: [RunicDolphin806]
 

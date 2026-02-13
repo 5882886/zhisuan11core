@@ -3,7 +3,7 @@ package org.zhisuan11.scheduled;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.zhisuan11.core.Zhisuan11core;
+import org.zhisuan11.Zhisuan11core;
 
 import java.util.List;
 

@@ -1,13 +1,21 @@
-package org.zhisuan11.core;
+package org.zhisuan11;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import org.zhisuan11.command.MainCommand;
 import org.zhisuan11.command.TeleportCommand;
 import org.zhisuan11.command.CommandTabCompleter;
+import org.zhisuan11.core.JoinInfo;
+import org.zhisuan11.core.JoinItem;
+import org.zhisuan11.core.Respawn;
 import org.zhisuan11.gui.GameMenuClick;
+import org.zhisuan11.scheduled.Quiz;
 import org.zhisuan11.scheduled.Schedule;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -19,6 +27,12 @@ public final class Zhisuan11core extends JavaPlugin {
     public static Zhisuan11core getInstance() {
         return main;
     }
+
+    // 问答类全局变量
+    public List<Map<?, ?>> taskMap = getConfig().getMapList("Quiz.List");
+    public List<Quiz.Task> taskList= new ArrayList<>();
+    public Quiz.Task task;
+    public String response;
 
     @Override
     public void onEnable() {
@@ -56,7 +70,6 @@ public final class Zhisuan11core extends JavaPlugin {
         // 服务器定时任务
         Schedule schedule = new Schedule();
         schedule.ScheduleTasks();
-
     }
 
     @Override

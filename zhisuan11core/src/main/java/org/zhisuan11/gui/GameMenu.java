@@ -7,7 +7,9 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+
 import org.checkerframework.checker.units.qual.A;
+import org.zhisuan11.Zhisuan11core;
 
 import java.util.Arrays;
 
@@ -15,7 +17,8 @@ public class GameMenu {
 
     private final Inventory MainMenu = Bukkit.createInventory(null, 27, "主菜单");
     private final Inventory ServerRule = Bukkit.createInventory(null, 27, "服务器守则");
-    private final Inventory Quiz = Bukkit.createInventory(null, 36, "Quiz");
+    private final Inventory Quiz = Bukkit.createInventory(null, 45, "Quiz");
+    private final Zhisuan11core plugin = Zhisuan11core.main;
 
     // 主菜单界面
     public Inventory createMainMenu(Player player) {
@@ -52,11 +55,20 @@ public class GameMenu {
 
     // Quiz界面
     public Inventory createQuizMenu(Player player) {
+
         AddItemToMenu(Quiz, 0, Material.CRAFTING_TABLE, "有奖问答！", "正在开发，敬请期待……");
+
+        AddItemToMenu(Quiz, 4, Material.PAPER, "题目", plugin.task.question);
+
+        AddItemToMenu(Quiz, 19, Material.RED_WOOL, "选项A", plugin.task.options.get(0));
+        AddItemToMenu(Quiz, 21, Material.YELLOW_WOOL, "选项B", plugin.task.options.get(1));
+        AddItemToMenu(Quiz, 23, Material.BLUE_WOOL, "选项C", plugin.task.options.get(2));
+        AddItemToMenu(Quiz, 25, Material.GREEN_WOOL, "选项D", plugin.task.options.get(3));
+
         // 玩家信息（左下角）
-        Quiz.setItem(27, createPlayerHead(player));
+        Quiz.setItem(36, createPlayerHead(player));
         // 插件信息（右下角）
-        AddItemToMenu(Quiz, 35, Material.REDSTONE_BLOCK, "关于插件", "点击访问插件仓库");
+        AddItemToMenu(Quiz, 44, Material.REDSTONE_BLOCK, "关于插件", "点击访问插件仓库");
 
         return Quiz;
     }

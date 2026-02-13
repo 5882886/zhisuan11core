@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import org.zhisuan11.core.JoinItem;
-import org.zhisuan11.core.Zhisuan11core;
+import org.zhisuan11.Zhisuan11core;
 import org.zhisuan11.gui.GameMenu;
 import org.zhisuan11.scheduled.Quiz;
 import org.zhisuan11.scheduled.Broadcast;
@@ -19,7 +19,7 @@ public class MainCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        try {
+
             Player player = null;
 
             if (sender instanceof Player) {
@@ -112,8 +112,24 @@ public class MainCommand implements CommandExecutor {
 
             //  /zs quiz ...
             if (args[0].equals("quiz")) {
-                Quiz.SendQuiz();
-                return true;
+                Quiz quiz = new Quiz();
+                if (args[1].equals("send")) {
+                    if (args.length == 3) {
+                        //  /zs quiz send <num>
+                        int num = Integer.parseInt(args[2]);
+                        quiz.SendSpecificQuiz(num);
+                        return true;
+                    }
+                    //  /zs quiz send ...
+                    quiz.SendQuiz();
+                    return true;
+                } else if (args[1].equals("show")) {
+                    //  /zs quiz show
+                    int sum = Zhisuan11core.main.taskList.size();
+                    sender.sendMessage("当前题库中共有" + sum + "题");
+                    return true;
+                }
+                return false;
             }
 
             //  /zs reload
@@ -127,9 +143,5 @@ public class MainCommand implements CommandExecutor {
             sender.sendMessage("欢迎使用zhisuan11core MC服务器插件！");
             return false;
 
-        } catch (Exception e) {
-            sender.sendMessage("出现未知错误！");
-            return false;
-        }
     }
 }
