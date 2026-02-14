@@ -1,6 +1,8 @@
 package org.zhisuan11;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.zhisuan11.command.MainCommand;
@@ -13,6 +15,7 @@ import org.zhisuan11.gui.GameMenuClick;
 import org.zhisuan11.scheduled.Quiz;
 import org.zhisuan11.scheduled.Schedule;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +31,11 @@ public final class Zhisuan11core extends JavaPlugin {
         return main;
     }
 
+    public FileConfiguration QuizConfig;
+
     // 问答类全局变量
-    public List<Map<?, ?>> taskMap = getConfig().getMapList("Quiz.List");
-    public List<Quiz.Task> taskList= new ArrayList<>();
+    public List<Map<?, ?>> taskMap;
+    public List<Quiz.Task> taskList = new ArrayList<>();
     public Quiz.Task task;
     public String response;
 
@@ -38,6 +43,13 @@ public final class Zhisuan11core extends JavaPlugin {
     public void onEnable() {
 
         main = this;
+
+        File QuizFile = new File(getDataFolder(), "Quiz.yml");
+        if (!QuizFile.exists()) {
+            saveResource("Quiz.yml", false); // 假设你在jar包的根目录放了默认文件
+        }
+        QuizConfig = YamlConfiguration.loadConfiguration(QuizFile);
+        taskMap = QuizConfig.getMapList("List");
 
         // Plugin startup logic
         getLogger().info("欢迎您使用智算11班服务器插件！");

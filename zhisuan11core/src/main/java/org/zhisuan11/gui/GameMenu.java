@@ -8,10 +8,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import org.checkerframework.checker.units.qual.A;
 import org.zhisuan11.Zhisuan11core;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class GameMenu {
 
@@ -58,12 +60,15 @@ public class GameMenu {
 
         AddItemToMenu(Quiz, 0, Material.CRAFTING_TABLE, "有奖问答！", "正在开发，敬请期待……");
 
-        AddItemToMenu(Quiz, 4, Material.PAPER, "题目", plugin.task.question);
-
-        AddItemToMenu(Quiz, 19, Material.RED_WOOL, "选项A", plugin.task.options.get(0));
-        AddItemToMenu(Quiz, 21, Material.YELLOW_WOOL, "选项B", plugin.task.options.get(1));
-        AddItemToMenu(Quiz, 23, Material.BLUE_WOOL, "选项C", plugin.task.options.get(2));
-        AddItemToMenu(Quiz, 25, Material.GREEN_WOOL, "选项D", plugin.task.options.get(3));
+        // 设置题目
+        AddItemToMenu(Quiz, 4, Material.PAPER, "§r题目", "§r§b" + plugin.task.question);
+        // 设置奖品
+        AddItemToMenu(Quiz, 8, plugin.task.reward.getType(), "§r奖品");
+        // 设置选项
+        AddItemToMenu(Quiz, 19, Material.RED_WOOL, "§r选项A",  "§r§b" + plugin.task.options.get(0));
+        AddItemToMenu(Quiz, 21, Material.YELLOW_WOOL, "§r选项B", "§r§b" + plugin.task.options.get(1));
+        AddItemToMenu(Quiz, 23, Material.BLUE_WOOL, "§r选项C", "§r§b" + plugin.task.options.get(2));
+        AddItemToMenu(Quiz, 25, Material.GREEN_WOOL, "§r选项D", "§r§b" + plugin.task.options.get(3));
 
         // 玩家信息（左下角）
         Quiz.setItem(36, createPlayerHead(player));
@@ -80,9 +85,13 @@ public class GameMenu {
         ItemMeta itemMeta = itemStack.getItemMeta();
         if (itemMeta != null) {
             itemMeta.setDisplayName(itemName);
-            if (itemLore != null && itemLore.length > 0) {
-                itemMeta.setLore(Arrays.asList(itemLore));
+            // 追加lore内容
+            List<String> lore = itemMeta.getLore();
+            if (lore == null) {
+                lore = new ArrayList<>();
             }
+            lore.addAll(Arrays.asList(itemLore));
+            itemMeta.setLore(lore);
         }
         itemStack.setItemMeta(itemMeta);
         menu.setItem(slot, itemStack);

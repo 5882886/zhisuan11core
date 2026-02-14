@@ -4,15 +4,14 @@ import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.zhisuan11.Zhisuan11core;
 import org.zhisuan11.gui.GameMenu;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 
 public class Quiz extends BukkitRunnable {
@@ -27,15 +26,17 @@ public class Quiz extends BukkitRunnable {
         public String question;
         public List<String> options;
         public String answer;
+        public ItemStack reward;
     }
 
     private final Zhisuan11core plugin = Zhisuan11core.main;
 
     // 间隔时间
-    int interval = Zhisuan11core.main.getConfig().getInt("Quiz.interval", 900);
+    int interval = plugin.QuizConfig.getInt("interval", 900);
 
     // 设置问答池
     public void setQuiz() {
+
         if (plugin.taskMap == null || plugin.taskMap.isEmpty()) {
             Zhisuan11core.main.getLogger().warning("问答池为空！");
             return;
@@ -53,6 +54,11 @@ public class Quiz extends BukkitRunnable {
             temp.options.add((String) options.get("B"));
             temp.options.add((String) options.get("C"));
             temp.options.add((String) options.get("D"));
+
+            Object rewardObj = taskMap.get("Reward");
+            String rewardName = rewardObj.toString();
+            Material rewardMaterial = Material.matchMaterial(rewardName.toUpperCase());
+            temp.reward = new ItemStack(Objects.requireNonNull(rewardMaterial));
 
             plugin.taskList.add(temp);
         }
@@ -95,6 +101,9 @@ public class Quiz extends BukkitRunnable {
     public void check(Player player) {
         if (plugin.response.equals(plugin.task.answer)) {
             player.sendMessage("回答正确！");
+            // 给予奖励
+            player.getInventory().addItem(plugin.task.reward);
+            GameMenu.closeMenu(player);
             return;
         }
         player.sendMessage("回答错误！");
