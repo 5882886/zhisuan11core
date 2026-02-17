@@ -33,7 +33,7 @@ public class CommandTabCompleter implements TabCompleter {
                     }
                     case "quiz" -> {
                         List<String> completions = new ArrayList<>();
-                        AddCompletions(completions, "send", "show");
+                        AddCompletions(completions, "send", "show", "reload");
                         return completions;
                     }
                 }

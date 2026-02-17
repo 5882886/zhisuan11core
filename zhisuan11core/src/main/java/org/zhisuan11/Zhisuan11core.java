@@ -31,6 +31,7 @@ public final class Zhisuan11core extends JavaPlugin {
         return main;
     }
 
+    public File QuizFile;
     public FileConfiguration QuizConfig;
 
     // 问答类全局变量
@@ -44,7 +45,8 @@ public final class Zhisuan11core extends JavaPlugin {
 
         main = this;
 
-        File QuizFile = new File(getDataFolder(), "Quiz.yml");
+        // 生成Quiz.yml文件
+        QuizFile = new File(getDataFolder(), "Quiz.yml");
         if (!QuizFile.exists()) {
             saveResource("Quiz.yml", false); // 假设你在jar包的根目录放了默认文件
         }

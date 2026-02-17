@@ -1,22 +1,41 @@
 # 服务器有奖问答系统
-# 这（应该）是一个大工程，之后再实现
+# 这（应该）是一个大工程，可能会有很多bug
 
-interval: 900
+config:
+  storage: YAML
+  name:
+  database:
+  password:
+  # 发送Quiz的间隔时间（单位：秒）
+  interval: 900
 
+# 设置回答时发送的信息
+message:
+  # 已有玩家回答正确
+  hasCorrect: "已有玩家回答正确！"
+  # 已回答过此问题
+  hasAnswered: "您已经回答过此问题！"
+  # 回答正确
+  correct: "回答正确，奖励已发放！"
+  # 回答错误
+  wrong: "回答错误！"
+
+# 示例配置
+# 每个问题不宜过长
 List:
-  - Question: 以下哪一个不是合法的IP地址？
+  - Question: "以下哪一个不是合法的IP地址？"
     Options:
-      A: 172.28.45.56
-      B: 192.168.0.1
-      C: 240e:360:6f43:500:d14d:dbd0:97:b3b3
-      D: 127.256.3.34
+      A: "172.28.45.56"
+      B: "192.168.0.1"
+      C: "240e:360:6f43:500:d14d:dbd0:97:b3b3"
+      D: "127.256.3.34"
     Answer: D
     Reward: DIAMOND
-  - Question: 选择B
+  - Question: "对于x86-64操作系统的栈，下列说法错误的是"
     Options:
-      A: a
-      B: b
-      C: c
-      D: d
+      A: "栈的顶部位于低地址处"
+      B: "栈的内部存放全局变量"
+      C: "每个进程都独享一个栈"
+      D: "函数在返回时销毁栈帧"
     Answer: B
     Reward: DIAMOND

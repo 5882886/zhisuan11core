@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -127,6 +128,11 @@ public class MainCommand implements CommandExecutor {
                     //  /zs quiz show
                     int sum = Zhisuan11core.main.taskList.size();
                     sender.sendMessage("当前题库中共有" + sum + "题");
+                    return true;
+                } else if (args[1].equals("reload")) {
+                    //  /zs quiz reload
+                    quiz.reloadQuiz();
+                    sender.sendMessage("Quiz重载完成！");
                     return true;
                 }
                 return false;
