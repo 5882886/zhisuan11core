@@ -15,9 +15,11 @@
 - [x] 传送指令
 - [x] 主菜单
 - [x] 侧边栏
-- [ ] 问答系统
+- [x] 问答系统
+- [x] 数据库支持
 - [ ] 每日登录
-- [ ] 数据库支持
+
+> 更多的以后再说……
 
 ## 兼容性
 
@@ -37,6 +39,7 @@ api 版本是 1.20.1。
         ├── java
             ├── org.zhisuan11
                 ├── core（核心文件）
+                    ├── Broadcast.java                  # 发送公告
                     ├── JoinInfo.java                   # 在玩家加入时发送标题和聊天信息
                     ├── JoinItem.java                   # 向玩家发送物品
                     ├── Sidebar.java                    # 游戏内侧边栏
@@ -51,25 +54,33 @@ api 版本是 1.20.1。
                     ├── GameMenu.java                   # 游戏内菜单核心文件
                     ├── GameMenuClick.java              # 游戏内菜单点击事件
                         
+                ├── quiz（问答系统）
+                    ├── Quiz.java                       # 游戏内菜单核心文件
+                    ├── QuizForSql.java                 # 游戏内菜单点击事件
+                    ├── QuizForYaml.java                # 游戏内菜单点击事件
+                
                 ├── scheduled（定时事件）   
-                    ├── Broadcast.java                  # 发送公告
-                    ├── Schedule.java                   # 处理定时事件
-                    ├── Quiz.java                       # 问答系统
+                    ├── InitialTask.java                # 处理初始事件
+                    ├── ScheduleTask.java               # 处理定时事件
                     
                 ├── Zhisuan11core.java      # 主文件，插件启动标识
                 
         ├── resources
-            ├── config.yml      # 配置文件
+            ├── config.yml      # 核心配置文件
+            ├── Quiz.yml        # Quiz配置文件
             ├── plugin.yml      # 插件信息
             
     ├── build.gradle    # Gradle配置文件
     ├── README.md
+    ...
 ```
 
 
 ## 更新日志
 
 ### 版本记录
+
+2026/02/19：正式版 v1.2
 
 2026/02/17：正式版 v1.1
 
@@ -81,6 +92,7 @@ api 版本是 1.20.1。
 
 |     日期     | 更新内容        |
 |:----------:|-------------|
+| 2026-02-19 | 正式实现数据库支持   |
 | 2026-02-17 | 问答系统基本完成    |
 | 2026-02-13 | 实现基础的问答系统   |
 | 2026-02-12 | 更新文件结构      |
