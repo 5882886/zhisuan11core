@@ -2,16 +2,13 @@
 # 这（应该）是一个大工程，可能会有很多bug
 
 config:
-  # 存储类型，支持YAML和MYSQL
-  storage: YAML
+  storage: YAML           # 存储类型，支持YAML和MYSQL
   host: localhost
   port: 3306
   name: root
   password:
-  # 须提前新建quiz数据库
-  database: quiz
-  # 发送Quiz的间隔时间（单位：秒）
-  interval: 900
+  database: zhisuan11     # 须提前新建quiz数据库
+  interval: 900           # 发送Quiz的间隔时间（单位：秒）
 
 # 设置回答时发送的信息
 message:

@@ -139,9 +139,9 @@ public class MainCommand implements CommandExecutor {
 
             //  /zs reload
             if (args[0].equals("reload") && args.length == 1) {
-                sender.sendMessage(ChatColor.BLUE + "[zhisuan11core]正在重载插件配置……");
+                sender.sendMessage(ChatColor.BLUE + "[zhisuan11core] 正在重载插件配置……");
                 Zhisuan11core.main.reloadConfig();
-                sender.sendMessage(ChatColor.BLUE + "[zhisuan11core]配置文件重载完成！");
+                sender.sendMessage(ChatColor.BLUE + "[zhisuan11core] 配置文件重载完成！");
                 return true;
             }
 

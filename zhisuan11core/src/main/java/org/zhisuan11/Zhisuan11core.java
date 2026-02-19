@@ -16,7 +16,6 @@ import org.zhisuan11.tasks.InitialTask;
 import org.zhisuan11.tasks.ScheduleTask;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -28,30 +27,39 @@ public final class Zhisuan11core extends JavaPlugin {
     public static Zhisuan11core main;
 
     // 声明全局类
-    public Quiz quiz;
-    public File QuizFile;
-    public FileConfiguration QuizConfig;
     public QuizForSql.DatabaseConfig databaseConfig;
     public QuizForSql.DatabaseStorage databaseStorage;
-
+    public Quiz quiz;
     public GameMenu gameMenu;
     public Sidebar sidebar;
     public Broadcast broadcast;
-
     public InitialTask initialTask;
     public ScheduleTask scheduleTask;
 
+    // 构造函数
+    public Zhisuan11core() {
+        // 应该在构造函数中先赋值静态变量
+        main = this;
+        // 初始化全局类
+        quiz = new Quiz();
+        gameMenu = new GameMenu();
+        sidebar = new Sidebar();
+        broadcast = new Broadcast();
+        initialTask = new InitialTask();
+        scheduleTask = new ScheduleTask();
+    }
+
     // 创建全局变量
     // 问答类
+    public File QuizFile;
+    public FileConfiguration QuizConfig;
     public List<Map<?, ?>> taskMap;
-    public List<Quiz.Task> taskList = new ArrayList<>();
+    public List<Quiz.Task> taskList;
     public Quiz.Task task;
     public String response;
 
     @Override
     public void onEnable() {
-
-        main = this;
 
         // Plugin startup logic
         getLogger().info("欢迎您使用智算11班服务器插件！");
@@ -65,6 +73,10 @@ public final class Zhisuan11core extends JavaPlugin {
         getLogger().info("╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝╚══════╝");
         getLogger().info(" ");
 
+
+        // 服务器任务
+        initialTask.initialTasks();
+        scheduleTask.ScheduleTasks();
 
         Objects.requireNonNull(Bukkit.getPluginCommand("zhisuan11")).setExecutor(new MainCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("tp")).setExecutor(new TeleportCommand());
@@ -81,9 +93,6 @@ public final class Zhisuan11core extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        // 服务器任务
-        initialTask.initialTasks();
-        scheduleTask.ScheduleTasks();
     }
 
     @Override

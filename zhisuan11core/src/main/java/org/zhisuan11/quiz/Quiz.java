@@ -40,8 +40,7 @@ public class Quiz extends BukkitRunnable {
         public UUID winner;
     }
 
-    // 间隔时间
-    public int interval = plugin.QuizConfig.getInt("config.interval", 900);
+    public int interval;
 
     // 选择问题
     public Quiz.Task chooseQuiz() {
@@ -117,6 +116,7 @@ public class Quiz extends BukkitRunnable {
     // 初始化Quiz
     public void initialQuiz() {
         QuizForYaml quizForYaml = new QuizForYaml();
+        plugin.taskList = new ArrayList<>();
 
         // 生成Quiz.yml文件
         plugin.QuizFile = new File(plugin.getDataFolder(), "Quiz.yml");
@@ -125,6 +125,8 @@ public class Quiz extends BukkitRunnable {
         }
         plugin.QuizConfig = YamlConfiguration.loadConfiguration(plugin.QuizFile);
 
+        // 间隔时间
+        interval = plugin.QuizConfig.getInt("config.interval", 900);
         String storageType = plugin.QuizConfig.getString("config.storage", "YAML");
 
         // 设置Quiz存储格式
