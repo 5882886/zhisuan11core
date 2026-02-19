@@ -1,5 +1,0 @@
-{
-    "name": "patchouli.gui.lexicon.cells",  //本地化键
-    "description": "patchouli.gui.lexicon.cells.text",  //本地化键
-    "icon": "kubejs:ultranium_gem_cell"  //图标
-}

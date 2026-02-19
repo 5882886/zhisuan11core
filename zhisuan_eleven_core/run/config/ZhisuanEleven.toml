@@ -1,5 +1,0 @@
-#The words on display when players join in the world 
-WelcomeTitle = "Welcome to the world"
-#Use teleport command
-TeleportCommand = true
-

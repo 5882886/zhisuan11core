@@ -1,19 +1,92 @@
-# My-Minecraft-Sever
+## 简介
 
-## What is it?
+这是我的第一个Minecraft Bukkit插件。
 
-This repository stores my Minecraft project, including a simple spiogt plugin based on Minecraft 1.20.1, designed for the Minecraft Sever belonging to class "Zhisuan Eleven", Tianjin University, China; and a Minecraft 1.20.1 mod developed specifically for the Forge server.
+> 开发团队：我、Kimi、DeepSeek……
+> 
+> 做得不好，还请各位大佬批评指正。
 
-Recently, I've made a simple PCL menu. If you like it, please copy the path and paste it on the PCL custom menu settings.
+目前用于天津大学2024级智算11班MC服务器。
 
-| Repositories | Type |
-|--------------|------|
-| zhisuan11core | Plugin |
-| zhisuan_eleven_core | Mod |
-| PCL-menu | *Just as the name suggests* |
+## 功能
 
-## Can I use it?
+- [x] 初始物品
+- [x] 简单公告
+- [x] 传送指令
+- [x] 主菜单
+- [x] 侧边栏
+- [ ] 问答系统
+- [ ] 每日登录
+- [ ] 数据库支持
 
-Actually, everyone can use them. However, in considerarion of the fact that they are customized for my own class, I strongly recommand that you should make some small adjustments to enjoy the best compatibility. If you have any suggestion, please do not hesitate to share!
+## 兼容性
 
-Click [here](https://5882886.github.io/My-Minecraft-Server/PCL-menu/index.html) to view the PCL-menu page!
+api 版本是 1.20.1。
+
+已在 Mohist 1.20.1、Paper 1.20.1 & 1.21.11测试。
+
+理论上在所有基于`Bukkit api`的Minecraft服务器核心上均可运行！
+
+## 文件说明
+
+> 基本上所有文件均采用驼峰命名法
+
+```
+├── src
+    ├── main
+        ├── java
+            ├── org.zhisuan11
+                ├── core（核心文件）
+                    ├── JoinInfo.java                   # 在玩家加入时发送标题和聊天信息
+                    ├── JoinItem.java                   # 向玩家发送物品
+                    ├── Sidebar.java                    # 游戏内侧边栏
+                    ├── Respawn.java                    # 重设出生点
+                    
+                ├── command（命令）
+                    ├── MainCommand.java                # 游戏内核心命令
+                    ├── TeleportCommand.java            # 游戏内传送命令（接管原版 tp 指令）
+                    ├── CommandTabCompleter.java        # 游戏内命令输入补全
+                    
+                ├── gui（游戏内菜单）
+                    ├── GameMenu.java                   # 游戏内菜单核心文件
+                    ├── GameMenuClick.java              # 游戏内菜单点击事件
+                        
+                ├── scheduled（定时事件）   
+                    ├── Broadcast.java                  # 发送公告
+                    ├── Schedule.java                   # 处理定时事件
+                    ├── Quiz.java                       # 问答系统
+                    
+                ├── Zhisuan11core.java      # 主文件，插件启动标识
+                
+        ├── resources
+            ├── config.yml      # 配置文件
+            ├── plugin.yml      # 插件信息
+            
+    ├── build.gradle    # Gradle配置文件
+    ├── README.md
+```
+
+
+## 更新日志
+
+### 版本记录
+
+2026/02/17：正式版 v1.1
+
+2026/02/04：正式版 v1.0
+
+2025/03/17：测试版 v1.0-snapshot
+
+### 详细信息
+
+|     日期     | 更新内容        |
+|:----------:|-------------|
+| 2026-02-17 | 问答系统基本完成    |
+| 2026-02-13 | 实现基础的问答系统   |
+| 2026-02-12 | 更新文件结构      |
+| 2026-02-09 | 插件菜单界面更新    |
+| 2026-02-05 | 新增游戏主菜单和侧边栏 |
+| 2026-02-04 | 更新传送模块和重生逻辑 |
+| 2026-02-03 | 实现物品给予功能    | 
+| 2025-04-28 | 增加传送功能      |
+| 2025-03-17 | 新建文件夹       |
