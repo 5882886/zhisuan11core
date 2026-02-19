@@ -5,15 +5,13 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import org.zhisuan11.core.JoinItem;
 import org.zhisuan11.Zhisuan11core;
 import org.zhisuan11.gui.GameMenu;
-import org.zhisuan11.scheduled.Quiz;
-import org.zhisuan11.scheduled.Broadcast;
+import org.zhisuan11.core.Broadcast;
 
 
 public class MainCommand implements CommandExecutor {
@@ -65,17 +63,16 @@ public class MainCommand implements CommandExecutor {
 
             //  /zs menu ...
             if (args[0].equals("menu")) {
-                GameMenu gameMenu = new GameMenu();
                 if (player == null) return false;
                 //  /zs menu main
                 if (args[1].equals("main")) {
-                    Inventory MainMenu = gameMenu.createMainMenu(player);
+                    Inventory MainMenu = Zhisuan11core.main.gameMenu.createMainMenu(player);
                     GameMenu.openMenu(player, MainMenu);
                     return true;
                 }
                 //  /zs menu quiz
                 else if (args[1].equals("quiz")) {
-                    Inventory QuizMenu = gameMenu.createQuizMenu(player);
+                    Inventory QuizMenu = Zhisuan11core.main.gameMenu.createQuizMenu(player);
                     GameMenu.openMenu(player, QuizMenu);
                     return true;
                 }
@@ -113,27 +110,29 @@ public class MainCommand implements CommandExecutor {
 
             //  /zs quiz ...
             if (args[0].equals("quiz")) {
-                Quiz quiz = new Quiz();
-                if (args[1].equals("send")) {
-                    if (args.length == 3) {
-                        //  /zs quiz send <num>
-                        int num = Integer.parseInt(args[2]);
-                        quiz.SendSpecificQuiz(num);
+                switch (args[1]) {
+                    case "send" -> {
+                        if (args.length == 3) {
+                            //  /zs quiz send <num>
+                            int num = Integer.parseInt(args[2]);
+                            Zhisuan11core.main.quiz.SendSpecificQuiz(num);
+                            return true;
+                        }
+                        //  /zs quiz send ...
+                        Zhisuan11core.main.quiz.SendQuiz();
                         return true;
                     }
-                    //  /zs quiz send ...
-                    quiz.SendQuiz();
-                    return true;
-                } else if (args[1].equals("show")) {
-                    //  /zs quiz show
-                    int sum = Zhisuan11core.main.taskList.size();
-                    sender.sendMessage("当前题库中共有" + sum + "题");
-                    return true;
-                } else if (args[1].equals("reload")) {
-                    //  /zs quiz reload
-                    quiz.reloadQuiz();
-                    sender.sendMessage("Quiz重载完成！");
-                    return true;
+                    case "show" -> {
+                        //  /zs quiz show
+                        int sum = Zhisuan11core.main.taskList.size();
+                        sender.sendMessage("当前题库中共有" + sum + "题");
+                        return true;
+                    }
+                    case "reload" -> {
+                        Zhisuan11core.main.quiz.initialQuiz();
+                        sender.sendMessage("题库初始化成功！");
+                        return true;
+                    }
                 }
                 return false;
             }

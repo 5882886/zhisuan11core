@@ -2,18 +2,18 @@ package org.zhisuan11;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.zhisuan11.command.MainCommand;
 import org.zhisuan11.command.TeleportCommand;
 import org.zhisuan11.command.CommandTabCompleter;
-import org.zhisuan11.core.JoinInfo;
-import org.zhisuan11.core.JoinItem;
-import org.zhisuan11.core.Respawn;
+import org.zhisuan11.core.*;
+import org.zhisuan11.gui.GameMenu;
 import org.zhisuan11.gui.GameMenuClick;
-import org.zhisuan11.scheduled.Quiz;
-import org.zhisuan11.scheduled.Schedule;
+import org.zhisuan11.quiz.Quiz;
+import org.zhisuan11.quiz.QuizForSql;
+import org.zhisuan11.tasks.InitialTask;
+import org.zhisuan11.tasks.ScheduleTask;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,14 +27,22 @@ public final class Zhisuan11core extends JavaPlugin {
     // 全局变量代表主类
     public static Zhisuan11core main;
 
-    public static Zhisuan11core getInstance() {
-        return main;
-    }
-
+    // 声明全局类
+    public Quiz quiz;
     public File QuizFile;
     public FileConfiguration QuizConfig;
+    public QuizForSql.DatabaseConfig databaseConfig;
+    public QuizForSql.DatabaseStorage databaseStorage;
 
-    // 问答类全局变量
+    public GameMenu gameMenu;
+    public Sidebar sidebar;
+    public Broadcast broadcast;
+
+    public InitialTask initialTask;
+    public ScheduleTask scheduleTask;
+
+    // 创建全局变量
+    // 问答类
     public List<Map<?, ?>> taskMap;
     public List<Quiz.Task> taskList = new ArrayList<>();
     public Quiz.Task task;
@@ -44,14 +52,6 @@ public final class Zhisuan11core extends JavaPlugin {
     public void onEnable() {
 
         main = this;
-
-        // 生成Quiz.yml文件
-        QuizFile = new File(getDataFolder(), "Quiz.yml");
-        if (!QuizFile.exists()) {
-            saveResource("Quiz.yml", false); // 假设你在jar包的根目录放了默认文件
-        }
-        QuizConfig = YamlConfiguration.loadConfiguration(QuizFile);
-        taskMap = QuizConfig.getMapList("List");
 
         // Plugin startup logic
         getLogger().info("欢迎您使用智算11班服务器插件！");
@@ -81,9 +81,9 @@ public final class Zhisuan11core extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
-        // 服务器定时任务
-        Schedule schedule = new Schedule();
-        schedule.ScheduleTasks();
+        // 服务器任务
+        initialTask.initialTasks();
+        scheduleTask.ScheduleTasks();
     }
 
     @Override
@@ -101,5 +101,9 @@ public final class Zhisuan11core extends JavaPlugin {
         getLogger().info("╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝╚══════╝");
         getLogger().info(" ");
 
+        if (databaseStorage != null) {
+            databaseStorage.close();
+            getLogger().info("已关闭数据库连接！");
+        }
     }
 }

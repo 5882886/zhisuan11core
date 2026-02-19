@@ -8,14 +8,12 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.zhisuan11.Zhisuan11core;
-import org.zhisuan11.scheduled.Quiz;
 
 public class GameMenuClick implements Listener {
 
     @EventHandler
     // 菜单点击事件
     public void MenuClick(InventoryClickEvent event) {
-        GameMenu gameMenu = new GameMenu();
 
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
@@ -32,7 +30,7 @@ public class GameMenuClick implements Listener {
             event.setCancelled(true);
             switch (clicked.getType()) {
                 case BOOK:
-                    Inventory ServerRule = gameMenu.createServerRule(player);
+                    Inventory ServerRule = Zhisuan11core.main.gameMenu.createServerRule(player);
                     GameMenu.closeMenu(player);
                     GameMenu.openMenu(player, ServerRule);
                     break;
@@ -54,7 +52,7 @@ public class GameMenuClick implements Listener {
             switch (clicked.getType()) {
                 case BARRIER:
                     GameMenu.closeMenu(player);
-                    Inventory MainMenu = gameMenu.createMainMenu(player);
+                    Inventory MainMenu = Zhisuan11core.main.gameMenu.createMainMenu(player);
                     GameMenu.openMenu(player, MainMenu);
                     break;
                 case REDSTONE_BLOCK:
@@ -67,23 +65,22 @@ public class GameMenuClick implements Listener {
             }
         } else if (view.getTitle().equals("Quiz")) {
             event.setCancelled(true);
-            Quiz quiz = new Quiz();
             switch (clicked.getType()) {
                 case RED_WOOL:
                     Zhisuan11core.main.response = "A";
-                    quiz.check(player);
+                    Zhisuan11core.main.quiz.check(player);
                     break;
                 case YELLOW_WOOL:
                     Zhisuan11core.main.response = "B";
-                    quiz.check(player);
+                    Zhisuan11core.main.quiz.check(player);
                     break;
                 case BLUE_WOOL:
                     Zhisuan11core.main.response = "C";
-                    quiz.check(player);
+                    Zhisuan11core.main.quiz.check(player);
                     break;
                 case GREEN_WOOL:
                     Zhisuan11core.main.response = "D";
-                    quiz.check(player);
+                    Zhisuan11core.main.quiz.check(player);
                     break;
                 default:
                     break;

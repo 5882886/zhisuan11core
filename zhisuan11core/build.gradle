@@ -1,10 +1,11 @@
 plugins {
     id 'java'
     id("xyz.jpenilla.run-paper") version "2.3.1"
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'org.zhisuan11'
-version = '1.1'
+version = '1.2'
 
 repositories {
     mavenCentral()
@@ -18,8 +19,20 @@ repositories {
     }
 }
 
+// 依赖库管理
 dependencies {
+    // Spigot api版本
     compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
+    // MySQL 数据库
+    implementation 'mysql:mysql-connector-java:8.0.33'
+    // HikariCP 高性能数据库连接池
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+
+    /* 以下是可选内容 */
+    // SQLite JDBC
+    // implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
+    // SLF4J - HikariCP的依赖
+    // implementation 'org.slf4j:slf4j-nop:2.0.9'
 }
 
 tasks {
@@ -29,6 +42,19 @@ tasks {
     // Your plugin's jar (or shadowJar if present) will be used automatically.
     minecraftVersion("1.20")
   }
+}
+
+shadowJar {
+    // 重命名依赖包，避免冲突
+    relocate 'com.zaxxer.hikari', 'org.zhisuan11.libs.hikari'
+    // 命名输出文件
+    archiveFileName = "${project.name}-${project.version}.jar"
+    // 可选：最小化包含的内容（只包含用到的类）
+    minimize()
+}
+
+tasks.build {
+    dependsOn tasks.shadowJar
 }
 
 def targetJavaVersion = 17
