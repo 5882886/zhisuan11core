@@ -20,7 +20,7 @@ JoinMessage:
   - " 欢迎来到MC服务器！ "
 
 # 设置服务器公告
-BroadCast:
+Broadcast:
   enabled: true
   content:
       - "&6 ============================================= "

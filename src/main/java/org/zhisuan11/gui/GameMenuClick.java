@@ -65,22 +65,23 @@ public class GameMenuClick implements Listener {
             }
         } else if (view.getTitle().equals("Quiz")) {
             event.setCancelled(true);
+            String response;
             switch (clicked.getType()) {
                 case RED_WOOL:
-                    Zhisuan11core.main.response = "A";
-                    Zhisuan11core.main.quiz.check(player);
+                    response = "A";
+                    Zhisuan11core.main.quiz.check(player, response);
                     break;
                 case YELLOW_WOOL:
-                    Zhisuan11core.main.response = "B";
-                    Zhisuan11core.main.quiz.check(player);
+                    response = "B";
+                    Zhisuan11core.main.quiz.check(player, response);
                     break;
                 case BLUE_WOOL:
-                    Zhisuan11core.main.response = "C";
-                    Zhisuan11core.main.quiz.check(player);
+                    response = "C";
+                    Zhisuan11core.main.quiz.check(player, response);
                     break;
                 case GREEN_WOOL:
-                    Zhisuan11core.main.response = "D";
-                    Zhisuan11core.main.quiz.check(player);
+                    response = "D";
+                    Zhisuan11core.main.quiz.check(player, response);
                     break;
                 default:
                     break;

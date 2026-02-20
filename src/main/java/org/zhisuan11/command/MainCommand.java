@@ -11,7 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.zhisuan11.core.JoinItem;
 import org.zhisuan11.Zhisuan11core;
 import org.zhisuan11.gui.GameMenu;
-import org.zhisuan11.core.Broadcast;
+import org.zhisuan11.tasks.ScheduleTask;
 
 
 public class MainCommand implements CommandExecutor {
@@ -48,7 +48,7 @@ public class MainCommand implements CommandExecutor {
                 //  /zs broadcast send
                 if (args[1].equals("send")) {
                     if (args.length == 2) {
-                        Broadcast broadcast = new Broadcast();
+                        ScheduleTask.Broadcast broadcast = new ScheduleTask.Broadcast();
                         broadcast.SendBroadcast();
                         return true;
                     } else {

@@ -33,14 +33,10 @@ public class Sidebar extends BukkitRunnable {
         // 清空旧内容（通过取消注册并重新创建）
         objective.unregister();
         updateSidebar(scoreboard, player);
-
-        if (player.getPing() > 300) {
-            player.sendMessage("您的延迟较大，请检查网络连接……");
-        }
     }
 
     // 创建新侧边栏
-    public void createSidebar(Player player) {
+    private void createSidebar(Player player) {
         Scoreboard scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
 
         updateSidebar(scoreboard, player);
@@ -49,13 +45,13 @@ public class Sidebar extends BukkitRunnable {
     }
 
     // 侧边栏内容封装函数
-    public void setSidebar(Objective objective, String text, int score) {
+    private void setSidebar(Objective objective, String text, int score) {
         Score scoreEntry = objective.getScore(text);
         scoreEntry.setScore(score);
     }
 
     // 侧边栏生成
-    public void updateSidebar(Scoreboard scoreboard, Player player) {
+    private void updateSidebar(Scoreboard scoreboard, Player player) {
         Objective objective = scoreboard.registerNewObjective(
                 "ServerInfo",
                 Criteria.DUMMY,
@@ -78,7 +74,7 @@ public class Sidebar extends BukkitRunnable {
 
     // 获取服务器 TPS
     // 仅在Paper服务端生效
-    public String getAllTPS() {
+    private String getAllTPS() {
         try {
             Server server = Bukkit.getServer();
             double[] tps = (double[]) server.getClass()

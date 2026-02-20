@@ -36,43 +36,42 @@ api 版本是 1.20.1。
 ```
 ├── src
     ├── main
-        ├── java
-            ├── org.zhisuan11
-                ├── core（核心文件）
-                    ├── Broadcast.java                  # 发送公告
-                    ├── JoinInfo.java                   # 在玩家加入时发送标题和聊天信息
-                    ├── JoinItem.java                   # 向玩家发送物品
-                    ├── Sidebar.java                    # 游戏内侧边栏
-                    ├── Respawn.java                    # 重设出生点
-                    
-                ├── command（命令）
-                    ├── MainCommand.java                # 游戏内核心命令
-                    ├── TeleportCommand.java            # 游戏内传送命令（接管原版 tp 指令）
-                    ├── CommandTabCompleter.java        # 游戏内命令输入补全
-                    
-                ├── gui（游戏内菜单）
-                    ├── GameMenu.java                   # 游戏内菜单核心文件
-                    ├── GameMenuClick.java              # 游戏内菜单点击事件
-                        
-                ├── quiz（问答系统）
-                    ├── Quiz.java                       # 游戏内菜单核心文件
-                    ├── QuizForSql.java                 # 游戏内菜单点击事件
-                    ├── QuizForYaml.java                # 游戏内菜单点击事件
-                
-                ├── scheduled（定时事件）   
-                    ├── InitialTask.java                # 处理初始事件
-                    ├── ScheduleTask.java               # 处理定时事件
-                    
-                ├── Zhisuan11core.java      # 主文件，插件启动标识
-                
-        ├── resources
-            ├── config.yml      # 核心配置文件
-            ├── Quiz.yml        # Quiz配置文件
-            ├── plugin.yml      # 插件信息
-            
+    │   ├── java
+    │   │   └── org.zhisuan11
+    │   │       ├── core（核心文件）
+    │   │       │   ├── JoinInfo.java                   # 在玩家加入时发送标题和聊天信息
+    │   │       │   ├── JoinItem.java                   # 向玩家发送物品
+    │   │       │   ├── Sidebar.java                    # 游戏内侧边栏
+    │   │       │   └── Respawn.java                    # 重设出生点
+    │   │       │    
+    │   │       ├── command（命令）
+    │   │       │   ├── MainCommand.java                # 游戏内核心命令
+    │   │       │   ├── TeleportCommand.java            # 游戏内传送命令（接管原版 tp 指令）
+    │   │       │   └── CommandTabCompleter.java        # 游戏内命令输入补全
+    │   │       │    
+    │   │       ├── gui（游戏内菜单）
+    │   │       │   ├── GameMenu.java                   # 游戏内菜单核心文件
+    │   │       │   └── GameMenuClick.java              # 游戏内菜单点击事件
+    │   │       │        
+    │   │       ├── quiz（问答系统）
+    │   │       │   ├── Quiz.java                       # Quiz主文件
+    │   │       │   ├── QuizForSql.java                 # Quiz的MySQL存储
+    │   │       │   └── QuizForYaml.java                # Quiz的YAML存储
+    │   │       │
+    │   │       ├── tasks（定时事件）   
+    │   │       │   ├── InitialTask.java                # 处理初始事件
+    │   │       │   └── ScheduleTask.java               # 处理定时事件
+    │   │       │    
+    │   │       └── Zhisuan11core.java      # 主文件，插件启动标识
+    │   │        
+    │   └── resources
+    │       ├── config.yml      # 核心配置文件
+    │       ├── Quiz.yml        # Quiz配置文件
+    │       └── plugin.yml      # 插件信息
+    │        
     ├── build.gradle    # Gradle配置文件
     ├── README.md
-    ...
+    └── ...
 ```
 
 

@@ -32,7 +32,6 @@ public final class Zhisuan11core extends JavaPlugin {
     public Quiz quiz;
     public GameMenu gameMenu;
     public Sidebar sidebar;
-    public Broadcast broadcast;
     public InitialTask initialTask;
     public ScheduleTask scheduleTask;
 
@@ -44,7 +43,6 @@ public final class Zhisuan11core extends JavaPlugin {
         quiz = new Quiz();
         gameMenu = new GameMenu();
         sidebar = new Sidebar();
-        broadcast = new Broadcast();
         initialTask = new InitialTask();
         scheduleTask = new ScheduleTask();
     }
@@ -56,7 +54,6 @@ public final class Zhisuan11core extends JavaPlugin {
     public List<Map<?, ?>> taskMap;
     public List<Quiz.Task> taskList;
     public Quiz.Task task;
-    public String response;
 
     @Override
     public void onEnable() {
@@ -74,10 +71,6 @@ public final class Zhisuan11core extends JavaPlugin {
         getLogger().info(" ");
 
 
-        // 服务器任务
-        initialTask.initialTasks();
-        scheduleTask.ScheduleTasks();
-
         Objects.requireNonNull(Bukkit.getPluginCommand("zhisuan11")).setExecutor(new MainCommand());
         Objects.requireNonNull(Bukkit.getPluginCommand("tp")).setExecutor(new TeleportCommand());
 
@@ -93,6 +86,9 @@ public final class Zhisuan11core extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
+        // 服务器任务
+        initialTask.initialTasks();
+        scheduleTask.ScheduleTasks();
     }
 
     @Override

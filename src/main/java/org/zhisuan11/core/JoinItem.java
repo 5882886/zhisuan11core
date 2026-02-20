@@ -96,15 +96,13 @@ public class JoinItem implements Listener {
             if (amountObj != null) {
                 if (amountObj instanceof Integer) {
                     amount = (Integer) amountObj;
-                }
-                else if (amountObj instanceof String) {
+                } else if (amountObj instanceof String) {
                     try {
                         amount = Integer.parseInt((String) amountObj);
                     } catch (NumberFormatException e) {
                         Zhisuan11core.main.getLogger().warning("物品数量格式错误: " + amountObj);
                     }
-                }
-                else if (amountObj instanceof Number) {
+                } else if (amountObj instanceof Number) {
                     amount = ((Number) amountObj).intValue();
                 }
             }
@@ -132,8 +130,7 @@ public class JoinItem implements Listener {
                                 lore.add(ChatColor.translateAlternateColorCodes('&', lineObj.toString()));
                             }
                         }
-                    }
-                    else if (loreObj instanceof String) {
+                    } else if (loreObj instanceof String) {
                         // 如果lore是单行字符串
                         lore.add(ChatColor.translateAlternateColorCodes('&', loreObj.toString()));
                     }
