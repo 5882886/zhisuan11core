@@ -148,41 +148,62 @@ public class QuizForSql {
         private final DataSourceManager dataSourceManager;
         private final Zhisuan11core plugin = Zhisuan11core.main;
 
+        // 题库中的题目数量
+        public int maxId;
+
         public DatabaseStorage(DataSourceManager dataSourceManager) {
             this.dataSourceManager = dataSourceManager;
         }
 
+        // 设置Quiz信息
         public void setQuiz() {
-            String sql = "SELECT * FROM quiz ORDER BY id";
+            String sql = "SELECT MAX(id) FROM quiz";
+            maxId = 0;
 
             try (Connection connection = dataSourceManager.getConnection();
                  PreparedStatement statement = connection.prepareStatement(sql);
                  ResultSet rs = statement.executeQuery()) {
 
-                while (rs.next()) {
-                    Quiz.Task temp = new Quiz.Task();
+                // 获取最大的id
+                if (rs.next()) {
+                    maxId = rs.getInt(1);
+                }
 
-                    temp.question = rs.getString("question");
-                    temp.answer = rs.getString("answer");
+                plugin.getLogger().info("问题列表初始化成功！");
+                plugin.getLogger().info("当前题库共有" + maxId + "题");
+
+            } catch (SQLException e) {
+                plugin.getLogger().warning("获取问题列表失败: " + e.getMessage());
+            }
+        }
+
+        // 获取特定的Quiz
+        public void getQuizById(int id) {
+            String sql = "SELECT * FROM quiz WHERE id = ?";
+
+            try (Connection connection = dataSourceManager.getConnection();
+                 PreparedStatement statement = connection.prepareStatement(sql)) {
+
+                statement.setInt(1, id);
+                ResultSet rs = statement.executeQuery();
+
+                if (rs.next()) {
+                    plugin.task.question = rs.getString("question");
+                    plugin.task.answer = rs.getString("answer");
 
                     // options 一定要初始化！
-                    temp.options = new ArrayList<>();
-                    temp.options.add(rs.getString("option_a"));
-                    temp.options.add(rs.getString("option_b"));
-                    temp.options.add(rs.getString("option_c"));
-                    temp.options.add(rs.getString("option_d"));
+                    plugin.task.options = new ArrayList<>();
+                    plugin.task.options.add(rs.getString("option_a"));
+                    plugin.task.options.add(rs.getString("option_b"));
+                    plugin.task.options.add(rs.getString("option_c"));
+                    plugin.task.options.add(rs.getString("option_d"));
 
                     // 设置奖励
                     String rewardName = rs.getString("reward");
                     Material rewardMaterial = Material.matchMaterial(rewardName.toUpperCase());
-                    temp.reward = new ItemStack(Objects.requireNonNull(rewardMaterial));
+                    plugin.task.reward = new ItemStack(Objects.requireNonNull(rewardMaterial));
 
-                    plugin.taskList.add(temp);
                 }
-
-                plugin.getLogger().info("问题列表初始化成功！");
-                plugin.getLogger().info("当前题库共有" + plugin.taskList.size() + "题");
-
             } catch (SQLException e) {
                 plugin.getLogger().warning("获取问题列表失败: " + e.getMessage());
             }

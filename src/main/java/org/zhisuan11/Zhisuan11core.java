@@ -35,6 +35,14 @@ public final class Zhisuan11core extends JavaPlugin {
     public InitialTask initialTask;
     public ScheduleTask scheduleTask;
 
+    // 创建全局变量
+    // 问答类
+    public Quiz.Task task;
+    public File QuizFile;
+    public FileConfiguration QuizConfig;
+    public List<Map<?, ?>> taskMap;
+    public List<Quiz.Task> taskList;
+
     // 构造函数
     public Zhisuan11core() {
         // 应该在构造函数中先赋值静态变量
@@ -45,15 +53,8 @@ public final class Zhisuan11core extends JavaPlugin {
         sidebar = new Sidebar();
         initialTask = new InitialTask();
         scheduleTask = new ScheduleTask();
+        task = new Quiz.Task();
     }
-
-    // 创建全局变量
-    // 问答类
-    public File QuizFile;
-    public FileConfiguration QuizConfig;
-    public List<Map<?, ?>> taskMap;
-    public List<Quiz.Task> taskList;
-    public Quiz.Task task;
 
     @Override
     public void onEnable() {

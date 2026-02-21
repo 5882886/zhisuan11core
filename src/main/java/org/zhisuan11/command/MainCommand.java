@@ -11,6 +11,7 @@ import org.bukkit.inventory.Inventory;
 import org.zhisuan11.core.JoinItem;
 import org.zhisuan11.Zhisuan11core;
 import org.zhisuan11.gui.GameMenu;
+import org.zhisuan11.quiz.Quiz;
 import org.zhisuan11.tasks.ScheduleTask;
 
 
@@ -124,8 +125,7 @@ public class MainCommand implements CommandExecutor {
                     }
                     case "show" -> {
                         //  /zs quiz show
-                        int sum = Zhisuan11core.main.taskList.size();
-                        sender.sendMessage("当前题库中共有" + sum + "题");
+                        sender.sendMessage("当前题库中共有" + Zhisuan11core.main.quiz.getMaxNum() + "题");
                         return true;
                     }
                     case "reload" -> {

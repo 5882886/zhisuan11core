@@ -24,10 +24,10 @@ public class ScheduleTask {
 
         // 服务器公告
         Broadcast broadcast = new Broadcast();
-        broadcast.runTaskTimer(plugin, 20L * 15, 20L * broadcast.interval);
+        broadcast.runTaskTimer(plugin, 20L * 15, 20L * broadcast.getInterval());
 
         // 发送Quiz
-        plugin.quiz.runTaskTimer(plugin, 20L * 15, 20L * plugin.quiz.interval);
+        plugin.quiz.runTaskTimer(plugin, 20L * 15, 20L * plugin.quiz.getInterval());
 
         // 检查玩家延迟
         CheckPing checkPing = new CheckPing();
@@ -39,7 +39,7 @@ public class ScheduleTask {
     // 服务器公告
     public static class Broadcast extends BukkitRunnable {
 
-        public int interval = Zhisuan11core.main.getConfig().getInt("Broadcast.interval");
+        private final int interval = Zhisuan11core.main.getConfig().getInt("Broadcast.interval");
 
         @Override
         public void run() {
@@ -62,6 +62,10 @@ public class ScheduleTask {
             } else {
                 Zhisuan11core.main.getLogger().info("当前服务器无玩家在线，暂停公告发送！");
             }
+        }
+
+        public int getInterval() {
+            return interval;
         }
 
     }

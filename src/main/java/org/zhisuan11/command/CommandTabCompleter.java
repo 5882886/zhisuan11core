@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// Tab命令补全
 public class CommandTabCompleter implements TabCompleter {
 
     @Override
@@ -38,9 +39,7 @@ public class CommandTabCompleter implements TabCompleter {
                     }
                 }
             }
-        }
-
-        if (command.getName().equalsIgnoreCase("tp")) {
+        } else if (command.getName().equalsIgnoreCase("tp")) {
             if (args.length == 1) {
                 List<String> completions = new ArrayList<>();
                 AddCompletions(completions, "@s", "@p");

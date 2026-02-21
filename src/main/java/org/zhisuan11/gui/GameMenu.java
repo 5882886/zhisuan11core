@@ -58,12 +58,14 @@ public class GameMenu {
     // Quiz界面
     public Inventory createQuizMenu(Player player) {
 
-        AddItemToMenu(Quiz, 0, Material.CRAFTING_TABLE, "有奖问答！", "正在开发，敬请期待……");
+        AddItemToMenu(Quiz, 0, Material.CRAFTING_TABLE, "有奖问答！",
+                "点击对应的选项方块回答问题",
+                "答对有奖！");
 
         // 设置题目
         AddItemToMenu(Quiz, 4, Material.PAPER, "§r题目", "§r§b" + plugin.task.question);
         // 设置奖品
-        AddItemToMenu(Quiz, 8, plugin.task.reward.getType(), "§r奖品");
+        AddItemToMenu(Quiz, 8, plugin.task.reward.getType(), "§r奖品", "货真价实！");
         // 设置选项
         AddItemToMenu(Quiz, 19, Material.RED_WOOL, "§r选项A",  "§r§b" + plugin.task.options.get(0));
         AddItemToMenu(Quiz, 21, Material.YELLOW_WOOL, "§r选项B", "§r§b" + plugin.task.options.get(1));
