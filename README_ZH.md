@@ -1,3 +1,7 @@
+**语言**
+
+[English](./README.md) | 简体中文
+
 ## 简介
 
 这是我的第一个Minecraft Bukkit插件。
@@ -17,6 +21,7 @@
 - [x] 侧边栏
 - [x] 问答系统
 - [x] 数据库支持
+- [ ] 清理掉落物
 - [ ] 每日登录
 
 > 敬请期待……
@@ -59,6 +64,7 @@ api 版本是 1.20.1。
     │   │       │   └── QuizForYaml.java                # Quiz的YAML存储
     │   │       │
     │   │       ├── tasks（定时事件）   
+    │   │       │   ├── ClearDropItems.java             # 清理掉落物 
     │   │       │   ├── InitialTask.java                # 处理初始事件
     │   │       │   └── ScheduleTask.java               # 处理定时事件
     │   │       │    

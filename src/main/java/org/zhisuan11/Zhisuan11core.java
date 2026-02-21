@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import org.checkerframework.checker.units.qual.C;
 import org.zhisuan11.command.MainCommand;
 import org.zhisuan11.command.TeleportCommand;
 import org.zhisuan11.command.CommandTabCompleter;
@@ -12,6 +13,7 @@ import org.zhisuan11.gui.GameMenu;
 import org.zhisuan11.gui.GameMenuClick;
 import org.zhisuan11.quiz.Quiz;
 import org.zhisuan11.quiz.QuizForSql;
+import org.zhisuan11.tasks.ClearDropItems;
 import org.zhisuan11.tasks.InitialTask;
 import org.zhisuan11.tasks.ScheduleTask;
 
@@ -32,6 +34,8 @@ public final class Zhisuan11core extends JavaPlugin {
     public Quiz quiz;
     public GameMenu gameMenu;
     public Sidebar sidebar;
+    public ClearDropItems clearDropItems;
+
     public InitialTask initialTask;
     public ScheduleTask scheduleTask;
 
@@ -51,6 +55,8 @@ public final class Zhisuan11core extends JavaPlugin {
         quiz = new Quiz();
         gameMenu = new GameMenu();
         sidebar = new Sidebar();
+        clearDropItems = new ClearDropItems();
+
         initialTask = new InitialTask();
         scheduleTask = new ScheduleTask();
         task = new Quiz.Task();

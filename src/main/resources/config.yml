@@ -53,4 +53,17 @@ Spawn:
   WorldSpawn: true    # 设置为 true 时启用世界出生点
 
 Teleport:
-  Cooldown: 5         # 传送命令冷却时间（单位：秒）
+  Cooldown: 30         # 传送命令冷却时间（单位：秒）
+
+# 清理掉落物
+ClearDropItems:
+  enabled: false;
+  # 清理间隔时间
+  interval: 900;
+  # 设置警告时间列表
+  warnings:
+    - 60
+    - 30
+    - 10
+  message: "&a[zhisuan11core] &e已清理 &b%count% &e个掉落物！"
+  warning: "&e[zhisuan11core] &c警告！&e物品将在 &b%seconds% &e秒后清理！"

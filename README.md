@@ -1,3 +1,7 @@
+**Language**
+
+English | [简体中文](./README_ZH.md)
+
 ## Introduction
 
 This is my fist Minecraft Bukkit Plugin.
@@ -17,6 +21,7 @@ Currently, it's used on the Minecraft server of my class.
 - [x] Sidebar
 - [x] Quiz
 - [x] Database support
+- [ ] Clear drop items
 - [ ] Daily login event
 
 > More is coming soon ...
@@ -58,7 +63,8 @@ In theory, it can run on all Minecraft server cores based on the Bukkit API!
     │   │       │   ├── QuizForSql.java                 # Quiz的MySQL存储
     │   │       │   └── QuizForYaml.java                # Quiz的YAML存储
     │   │       │
-    │   │       ├── tasks（定时事件）   
+    │   │       ├── tasks（定时事件）
+    │   │       │   ├── ClearDropItems.java             # 清理掉落物              
     │   │       │   ├── InitialTask.java                # 处理初始事件
     │   │       │   └── ScheduleTask.java               # 处理定时事件
     │   │       │    

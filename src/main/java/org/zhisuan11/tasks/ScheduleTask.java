@@ -2,10 +2,13 @@ package org.zhisuan11.tasks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.zhisuan11.Zhisuan11core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // 启动插件定时执行的内容
@@ -29,17 +32,30 @@ public class ScheduleTask {
         // 发送Quiz
         plugin.quiz.runTaskTimer(plugin, 20L * 15, 20L * plugin.quiz.getInterval());
 
+        // 清理掉落物
+        ClearDropItems clearDropItems = new ClearDropItems();
+        clearDropItems.runTaskTimer(plugin, 0L, 20L);
+
         // 检查玩家延迟
         CheckPing checkPing = new CheckPing();
         checkPing.runTaskTimer(plugin, 0L, 20L * 60);
     }
 
 
-
     // 服务器公告
     public static class Broadcast extends BukkitRunnable {
 
-        private final int interval = Zhisuan11core.main.getConfig().getInt("Broadcast.interval");
+        private String enable;
+        private int interval;
+
+        public Broadcast() {
+            enable = "true";
+            interval = 900;
+        }
+
+        public int getInterval() {
+            return interval;
+        }
 
         @Override
         public void run() {
@@ -47,11 +63,12 @@ public class ScheduleTask {
         }
 
         public void SendBroadcast() {
-            String bool = Zhisuan11core.main.getConfig().getString("Broadcast.enabled", "true");
-            List<String> announcement = Zhisuan11core.main.getConfig().getStringList("Broadcast.content");
+            enable = Zhisuan11core.main.getConfig().getString("Broadcast.enabled", "true");
 
             if (!Bukkit.getOnlinePlayers().isEmpty()) {
-                if (bool.equals("true")) {
+                if (enable.equals("true")) {
+                    interval = Zhisuan11core.main.getConfig().getInt("Broadcast.interval", 900);
+                    List<String> announcement = Zhisuan11core.main.getConfig().getStringList("Broadcast.content");
                     for (String message : announcement) {
                         message = ChatColor.translateAlternateColorCodes('&', message);
                         Zhisuan11core.main.getServer().broadcastMessage(message);
@@ -62,10 +79,6 @@ public class ScheduleTask {
             } else {
                 Zhisuan11core.main.getLogger().info("当前服务器无玩家在线，暂停公告发送！");
             }
-        }
-
-        public int getInterval() {
-            return interval;
         }
 
     }

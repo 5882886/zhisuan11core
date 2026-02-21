@@ -52,7 +52,9 @@ public class Quiz extends BukkitRunnable {
             randomNumber = random.nextInt(plugin.taskList.size());
             plugin.task = plugin.taskList.get(randomNumber);
         } else if (storageType.equals("MYSQL")) {
-            randomNumber = random.nextInt(plugin.databaseStorage.maxId);
+            // 获取 [1, maxId] 之间的随机数
+            // random.nextInt(b-a+1)+1 获取 [a, b] 之间的随机整数
+            randomNumber = random.nextInt(plugin.databaseStorage.maxId) + 1;
             plugin.databaseStorage.getQuizById(randomNumber);
         }
 
