@@ -66,4 +66,4 @@ ClearDropItems:
     - 30
     - 10
   message: "&a[zhisuan11core] &e已清理&b %count% &e个掉落物！"
-  warning: "&e[zhisuan11core] &c警告！&e 物品将在&b %seconds% &e秒后清理！"
+  warning: "&e[zhisuan11core] &c警告！&e掉落物将在&b %seconds% &e秒后清理！"

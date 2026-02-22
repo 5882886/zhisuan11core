@@ -13,7 +13,9 @@ import java.util.Objects;
 public class Sidebar {
 
     private BukkitTask update;
+    private final static long lastTick = System.currentTimeMillis();
 
+    // 实时更新侧边栏
     public void startUpdate() {
         if (update != null) {
             update.cancel();
@@ -31,8 +33,7 @@ public class Sidebar {
 
     }
 
-
-    // 实时更新侧边栏
+    // 更新侧边栏
     private void PlayerSidebar(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
         Objective objective = scoreboard.getObjective("ServerInfo");
@@ -85,9 +86,9 @@ public class Sidebar {
     }
 
     // 获取服务器 TPS
-    // 仅在Paper服务端生效
     private String getAllTPS() {
         try {
+            // 仅在Paper服务端生效
             Server server = Bukkit.getServer();
             double[] tps = (double[]) server.getClass()
                     .getMethod("getTPS")
@@ -95,7 +96,14 @@ public class Sidebar {
             double TPSResult = (tps[0] + tps[1] + tps[2]) / 3;
             return String.format("%.1f", TPSResult);
         } catch (Exception e) {
-            return "20.0";
+            double tps;
+            long now = System.currentTimeMillis();
+            long timeDiff = now - lastTick;
+
+            // 每 tick 应该是 50ms，计算实际 TPS
+            tps = Math.min(20.0, 1000.0 / (timeDiff / 50.0));
+
+            return String.format("%.1f", tps);
         }
     }
 }

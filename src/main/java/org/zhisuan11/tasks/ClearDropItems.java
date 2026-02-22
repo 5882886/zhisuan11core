@@ -69,7 +69,7 @@ public class ClearDropItems {
         message = Zhisuan11core.main.getConfig().getString("ClearDropItems.message",
                 "&a[zhisuan11core] &e已清理&b %count% &e个掉落物！");
         warning = Zhisuan11core.main.getConfig().getString("ClearDropItems.warning",
-                "&e[zhisuan11core] &c警告！&e 物品将在&b %seconds% &e秒后清理！");
+                "&e[zhisuan11core] &c警告！&e掉落物将在&b %seconds% &e秒后清理！");
     }
 
     // 清理所有世界的掉落物
@@ -108,8 +108,8 @@ public class ClearDropItems {
 
     // 清理前预警
     private void broadcastWarning(int seconds) {
-        warning = warning.replace("%seconds%", String.valueOf(seconds));
-        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', warning));
+        String broadcastMsg = warning.replace("%seconds%", String.valueOf(seconds));
+        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', broadcastMsg));
     }
 
 }

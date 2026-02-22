@@ -38,6 +38,12 @@ public class Quiz {
     private int maxNum;
     private String storageType;
 
+    public Quiz() {
+        interval = 600;
+        maxNum = 0;
+        storageType = "YAML";
+    }
+
     public void SendTask() {
         if (send != null) {
             send.cancel();
@@ -90,7 +96,7 @@ public class Quiz {
             plugin.databaseStorage.getQuizById(num);
         }
 
-        if (plugin.exercise == null) {
+        if (plugin.exercise == null || num > maxNum) {
             plugin.getLogger().warning("Exercise为空，请检查文件存储！");
             return;
         }
@@ -162,13 +168,13 @@ public class Quiz {
         storageType = plugin.QuizConfig.getString("config.storage", "YAML");
 
         // 设置Quiz存储格式
-        if (storageType.equals("YAML")) {
+        if (storageType.equalsIgnoreCase("YAML")) {
             plugin.exerciseList = new ArrayList<>();
             plugin.exerciseMap = plugin.QuizConfig.getMapList("List");
             quizForYaml.setQuiz();
             maxNum = plugin.exerciseList.size();
             plugin.getLogger().info("Quiz使用YAML格式");
-        } else if (storageType.equals("MYSQL")) {
+        } else if (storageType.equalsIgnoreCase("MYSQL")) {
             plugin.databaseConfig = new QuizForSql.DatabaseConfig();
             // 设置数据库信息
             plugin.databaseConfig.setType(plugin.QuizConfig.getString("config.storage", "mysql"));
