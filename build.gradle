@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id("xyz.jpenilla.run-paper") version "2.3.1"
+    id "xyz.jpenilla.run-paper" version "2.3.1"
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
@@ -21,7 +21,7 @@ repositories {
 
 // 依赖库管理
 dependencies {
-    // Spigot api版本
+    // Spigot api 版本
     compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
     // MySQL 数据库
     implementation 'mysql:mysql-connector-java:8.0.33'

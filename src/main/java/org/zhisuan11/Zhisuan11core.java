@@ -12,9 +12,10 @@ import org.zhisuan11.gui.GameMenu;
 import org.zhisuan11.gui.GameMenuClick;
 import org.zhisuan11.quiz.Quiz;
 import org.zhisuan11.quiz.QuizForSql;
+import org.zhisuan11.tasks.Broadcast;
+import org.zhisuan11.tasks.CheckPing;
 import org.zhisuan11.tasks.ClearDropItems;
-import org.zhisuan11.tasks.InitialTask;
-import org.zhisuan11.tasks.ScheduleTask;
+import org.zhisuan11.tasks.SeverTask;
 
 import java.io.File;
 import java.util.List;
@@ -33,14 +34,15 @@ public final class Zhisuan11core extends JavaPlugin {
     public Quiz quiz;
     public GameMenu gameMenu;
     public Sidebar sidebar;
-    public ClearDropItems clearDropItems;
 
-    public InitialTask initialTask;
-    public ScheduleTask scheduleTask;
+    public Broadcast broadcast;
+    public ClearDropItems clearDropItems;
+    public CheckPing checkPing;
+
+    public SeverTask scheduleTask;
 
     // 创建全局变量
     // 问答类
-
     public File QuizFile;
     public FileConfiguration QuizConfig;
     public Quiz.Exercise exercise;
@@ -56,10 +58,12 @@ public final class Zhisuan11core extends JavaPlugin {
         quiz = new Quiz();
         gameMenu = new GameMenu();
         sidebar = new Sidebar();
-        clearDropItems = new ClearDropItems();
 
-        initialTask = new InitialTask();
-        scheduleTask = new ScheduleTask();
+        broadcast = new Broadcast();
+        clearDropItems = new ClearDropItems();
+        checkPing = new CheckPing();
+
+        scheduleTask = new SeverTask();
         exercise = new Quiz.Exercise();
     }
 
@@ -95,7 +99,7 @@ public final class Zhisuan11core extends JavaPlugin {
         reloadConfig();
 
         // 服务器任务
-        initialTask.initialTasks();
+        scheduleTask.InitialTasks();
         scheduleTask.ScheduleTasks();
     }
 
@@ -114,9 +118,7 @@ public final class Zhisuan11core extends JavaPlugin {
         getLogger().info("╚══════╝╚═╝░░╚═╝╚═╝╚═════╝░░╚═════╝░╚═╝░░╚═╝╚═╝░░╚══╝╚══════╝╚══════╝");
         getLogger().info(" ");
 
-        if (databaseStorage != null) {
-            databaseStorage.close();
-            getLogger().info("已关闭数据库连接！");
-        }
+
+        scheduleTask.CloseTasks();
     }
 }

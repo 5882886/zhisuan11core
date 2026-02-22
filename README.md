@@ -64,6 +64,8 @@ In theory, it can run on all Minecraft server cores based on the Bukkit API!
     │   │       │   └── QuizForYaml.java                # Quiz的YAML存储
     │   │       │
     │   │       ├── tasks（定时事件）
+    │   │       │   ├── Broadcast.java                  # 服务器公告
+    │   │       │   ├── CheckPing.java                  # 检测Ping值    
     │   │       │   ├── ClearDropItems.java             # 清理掉落物              
     │   │       │   ├── InitialTask.java                # 处理初始事件
     │   │       │   └── ScheduleTask.java               # 处理定时事件

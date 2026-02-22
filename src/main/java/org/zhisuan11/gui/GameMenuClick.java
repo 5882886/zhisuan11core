@@ -31,8 +31,8 @@ public class GameMenuClick implements Listener {
             switch (clicked.getType()) {
                 case BOOK:
                     Inventory ServerRule = Zhisuan11core.main.gameMenu.createServerRule(player);
-                    GameMenu.closeMenu(player);
-                    GameMenu.openMenu(player, ServerRule);
+                    Zhisuan11core.main.gameMenu.closeMenu(player);
+                    Zhisuan11core.main.gameMenu.openMenu(player, ServerRule);
                     break;
                 case COMPASS:
                     player.teleport(player.getWorld().getSpawnLocation());
@@ -41,7 +41,7 @@ public class GameMenuClick implements Listener {
                 case REDSTONE_BLOCK:
                     player.sendMessage("插件作者：RunicDolphin806");
                     player.sendMessage("仓库地址：https://github.com/5882886/My-Minecraft-Server");
-                    GameMenu.closeMenu(player);
+                    Zhisuan11core.main.gameMenu.closeMenu(player);
                     break;
                 default:
                     break;
@@ -51,19 +51,19 @@ public class GameMenuClick implements Listener {
             event.setCancelled(true);
             switch (clicked.getType()) {
                 case BARRIER:
-                    GameMenu.closeMenu(player);
+                    Zhisuan11core.main.gameMenu.closeMenu(player);
                     Inventory MainMenu = Zhisuan11core.main.gameMenu.createMainMenu(player);
-                    GameMenu.openMenu(player, MainMenu);
+                    Zhisuan11core.main.gameMenu.openMenu(player, MainMenu);
                     break;
                 case REDSTONE_BLOCK:
                     player.sendMessage("插件作者：RunicDolphin806");
                     player.sendMessage("仓库地址：https://github.com/5882886/My-Minecraft-Server");
-                    GameMenu.closeMenu(player);
+                    Zhisuan11core.main.gameMenu.closeMenu(player);
                     break;
                 default:
                     break;
             }
-        } else if (view.getTitle().equals("Quiz")) {
+        } else if (view.getTitle().equals("欢迎来到Quiz")) {
             event.setCancelled(true);
             String response;
             switch (clicked.getType()) {

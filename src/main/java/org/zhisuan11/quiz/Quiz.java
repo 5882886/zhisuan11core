@@ -4,14 +4,15 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+
 import org.zhisuan11.Zhisuan11core;
-import org.zhisuan11.gui.GameMenu;
 
 import java.io.File;
 import java.util.*;
@@ -109,7 +110,7 @@ public class Quiz {
     // 发送文本组件
     private void SendText() {
         // 创建可点击的文本组件
-        TextComponent message = new TextComponent("§6§l新一轮Quiz开始啦！\n【点击这里】§r§e打开Quiz界面！");
+        TextComponent message = new TextComponent("============\n§6§l新一轮Quiz开始啦！\n【点击这里】§r§e打开Quiz界面！\n============");
         // 点击事件：玩家点击后会自动输入并执行此命令
         message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/zs menu quiz"));
         // 悬浮文本
@@ -124,13 +125,13 @@ public class Quiz {
         // 如果已经有玩家回答正确
         if (plugin.exercise.winner != null) {
             player.sendMessage(plugin.QuizConfig.getString("message.hasCorrect", "已有玩家回答正确！"));
-            GameMenu.closeMenu(player);
+            Zhisuan11core.main.gameMenu.closeMenu(player);
             return;
         }
         // 检查玩家是否已经回答过
         if (plugin.exercise.answeredPlayers.contains(playerId)) {
             player.sendMessage(plugin.QuizConfig.getString("message.hasAnswered", "您已经回答过此问题！"));
-            GameMenu.closeMenu(player);
+            Zhisuan11core.main.gameMenu.closeMenu(player);
             return;
         }
         // 记录玩家已回答
@@ -141,14 +142,14 @@ public class Quiz {
             player.getInventory().addItem(plugin.exercise.reward);
             // 发送提示音效
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
-            GameMenu.closeMenu(player);
+            Zhisuan11core.main.gameMenu.closeMenu(player);
             plugin.exercise.winner = playerId;
             player.sendMessage(plugin.QuizConfig.getString("message.correct", "回答正确，奖励已发放！"));
             return;
         }
         // 回答错误
         player.sendMessage(plugin.QuizConfig.getString("message.wrong", "回答错误！"));
-        GameMenu.closeMenu(player);
+        Zhisuan11core.main.gameMenu.closeMenu(player);
     }
 
     /* ---- 问题生成 ----- */

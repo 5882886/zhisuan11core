@@ -10,8 +10,6 @@ import org.bukkit.inventory.Inventory;
 
 import org.zhisuan11.core.JoinItem;
 import org.zhisuan11.Zhisuan11core;
-import org.zhisuan11.gui.GameMenu;
-import org.zhisuan11.tasks.ScheduleTask;
 
 
 public class MainCommand implements CommandExecutor {
@@ -47,8 +45,7 @@ public class MainCommand implements CommandExecutor {
         if (args[0].equals("broadcast")) {
             //  /zs broadcast send
             if (args[1].equals("send")) {
-                ScheduleTask.Broadcast broadcast = new ScheduleTask.Broadcast();
-                broadcast.SendBroadcast();
+                Zhisuan11core.main.broadcast.SendBroadcast();
                 return true;
             }
         }
@@ -59,12 +56,12 @@ public class MainCommand implements CommandExecutor {
             //  /zs menu main
             if (args[1].equals("main")) {
                 Inventory MainMenu = Zhisuan11core.main.gameMenu.createMainMenu(player);
-                GameMenu.openMenu(player, MainMenu);
+                Zhisuan11core.main.gameMenu.openMenu(player, MainMenu);
                 return true;
             } else if (args[1].equals("quiz")) {
                 //  /zs menu quiz
                 Inventory QuizMenu = Zhisuan11core.main.gameMenu.createQuizMenu(player);
-                GameMenu.openMenu(player, QuizMenu);
+                Zhisuan11core.main.gameMenu.openMenu(player, QuizMenu);
                 return true;
             }
         }
@@ -147,7 +144,7 @@ public class MainCommand implements CommandExecutor {
         if (args[0].equals("reload")) {
             sender.sendMessage(ChatColor.BLUE + "[zhisuan11core] 正在重载插件配置……");
             Zhisuan11core.main.reloadConfig();
-            Zhisuan11core.main.initialTask.initialTasks();
+            Zhisuan11core.main.scheduleTask.InitialTasks();
             sender.sendMessage(ChatColor.BLUE + "[zhisuan11core] 配置文件重载完成！");
             return true;
         }

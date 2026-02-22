@@ -153,12 +153,12 @@ public class QuizForSql {
 
         public DatabaseStorage(DataSourceManager dataSourceManager) {
             this.dataSourceManager = dataSourceManager;
+            maxId = 0;
         }
 
         // 设置Quiz信息
         public void setQuiz() {
             String sql = "SELECT MAX(id) FROM quiz";
-            maxId = 0;
 
             try (Connection connection = dataSourceManager.getConnection();
                  PreparedStatement statement = connection.prepareStatement(sql);
@@ -211,6 +211,7 @@ public class QuizForSql {
 
         public void close() {
             dataSourceManager.close();
+            plugin.getLogger().info("已关闭数据库连接！");
         }
     }
 }

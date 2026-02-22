@@ -16,10 +16,17 @@ import java.util.List;
 
 public class GameMenu {
 
-    private final Inventory MainMenu = Bukkit.createInventory(null, 27, "主菜单");
-    private final Inventory ServerRule = Bukkit.createInventory(null, 27, "服务器守则");
-    private final Inventory Quiz = Bukkit.createInventory(null, 45, "Quiz");
     private final Zhisuan11core plugin = Zhisuan11core.main;
+    private final Inventory MainMenu;
+    private final Inventory ServerRule;
+    private final Inventory QuizMenu;
+
+    public GameMenu() {
+        MainMenu = Bukkit.createInventory(null, 27, "主菜单");
+        ServerRule = Bukkit.createInventory(null, 27, "服务器守则");
+        QuizMenu = Bukkit.createInventory(null, 45, "欢迎来到Quiz");
+    }
+
 
     // 主菜单界面
     public Inventory createMainMenu(Player player) {
@@ -43,7 +50,6 @@ public class GameMenu {
                 "----------",
                 "遵守法律法规",
                 "禁止炸服等恶意破坏服务器的行为！");
-
         // 玩家信息（左下角）
         ServerRule.setItem(18, createPlayerHead(player));
         // 返回按钮（底部居中）
@@ -56,27 +62,25 @@ public class GameMenu {
 
     // Quiz界面
     public Inventory createQuizMenu(Player player) {
-
-        AddItemToMenu(Quiz, 0, Material.CRAFTING_TABLE, "有奖问答！",
+        // 左上角
+        AddItemToMenu(QuizMenu, 0, Material.CRAFTING_TABLE, "有奖问答！",
                 "点击对应的选项方块回答问题",
                 "答对有奖！");
-
         // 设置题目
-        AddItemToMenu(Quiz, 4, Material.PAPER, "§r题目", "§r§b" + plugin.exercise.question);
+        AddItemToMenu(QuizMenu, 4, Material.PAPER, "§r题目", "§r§b" + plugin.exercise.question);
         // 设置奖品
-        AddItemToMenu(Quiz, 8, plugin.exercise.reward.getType(), "§r奖品", "货真价实！");
+        AddItemToMenu(QuizMenu, 8, plugin.exercise.reward.getType(), "§r奖品", "货真价实！");
         // 设置选项
-        AddItemToMenu(Quiz, 19, Material.RED_WOOL, "§r选项A",  "§r§b" + plugin.exercise.options.get(0));
-        AddItemToMenu(Quiz, 21, Material.YELLOW_WOOL, "§r选项B", "§r§b" + plugin.exercise.options.get(1));
-        AddItemToMenu(Quiz, 23, Material.BLUE_WOOL, "§r选项C", "§r§b" + plugin.exercise.options.get(2));
-        AddItemToMenu(Quiz, 25, Material.GREEN_WOOL, "§r选项D", "§r§b" + plugin.exercise.options.get(3));
-
+        AddItemToMenu(QuizMenu, 19, Material.RED_WOOL, "§r选项A",  "§r§b" + plugin.exercise.options.get(0));
+        AddItemToMenu(QuizMenu, 21, Material.YELLOW_WOOL, "§r选项B", "§r§b" + plugin.exercise.options.get(1));
+        AddItemToMenu(QuizMenu, 23, Material.BLUE_WOOL, "§r选项C", "§r§b" + plugin.exercise.options.get(2));
+        AddItemToMenu(QuizMenu, 25, Material.GREEN_WOOL, "§r选项D", "§r§b" + plugin.exercise.options.get(3));
         // 玩家信息（左下角）
-        Quiz.setItem(36, createPlayerHead(player));
+        QuizMenu.setItem(36, createPlayerHead(player));
         // 插件信息（右下角）
-        AddItemToMenu(Quiz, 44, Material.REDSTONE_BLOCK, "关于插件", "点击访问插件仓库");
+        AddItemToMenu(QuizMenu, 44, Material.REDSTONE_BLOCK, "关于插件", "点击访问插件仓库");
 
-        return Quiz;
+        return QuizMenu;
     }
 
     // 向菜单中添加物品
@@ -120,11 +124,11 @@ public class GameMenu {
 
 
     // 打开主菜单
-    public static void openMenu(Player player, Inventory menu) {
+    public void openMenu(Player player, Inventory menu) {
         player.openInventory(menu);
     }
     // 关闭主菜单
-    public static void closeMenu(Player player) {
+    public void closeMenu(Player player) {
         player.closeInventory();
     }
 
