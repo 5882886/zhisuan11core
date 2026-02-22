@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.zhisuan11.Zhisuan11core;
 import org.zhisuan11.gui.GameMenu;
 
@@ -16,17 +17,13 @@ import java.io.File;
 import java.util.*;
 
 
-public class Quiz extends BukkitRunnable {
-
-    @Override
-    public void run() {
-        SendQuiz();
-    }
+public class Quiz {
 
     private final Zhisuan11core plugin = Zhisuan11core.main;
+    private BukkitTask send;
 
     // 题目类
-    public static class Task {
+    public static class Exercise {
         public String question;
         public List<String> options;
         public String answer;
@@ -41,6 +38,20 @@ public class Quiz extends BukkitRunnable {
     private int maxNum;
     private String storageType;
 
+    public void SendTask() {
+        if (send != null) {
+            send.cancel();
+        }
+
+        send = new BukkitRunnable() {
+            @Override
+            public void run() {
+                SendQuiz();
+            }
+        }.runTaskTimer(plugin, 0L, 20L * interval);
+    }
+
+
     /* ----- 发送问题 ----- */
     // 问题回答界面在 /gui/GameMenu.java
     // 发送随机问题
@@ -49,8 +60,8 @@ public class Quiz extends BukkitRunnable {
         Random random = new Random();
         int randomNumber = 0;
         if (storageType.equals("YAML")) {
-            randomNumber = random.nextInt(plugin.taskList.size());
-            plugin.task = plugin.taskList.get(randomNumber);
+            randomNumber = random.nextInt(plugin.exerciseList.size());
+            plugin.exercise = plugin.exerciseList.get(randomNumber);
         } else if (storageType.equals("MYSQL")) {
             // 获取 [1, maxId] 之间的随机数
             // random.nextInt(b-a+1)+1 获取 [a, b] 之间的随机整数
@@ -58,14 +69,14 @@ public class Quiz extends BukkitRunnable {
             plugin.databaseStorage.getQuizById(randomNumber);
         }
 
-        if (plugin.task == null) {
-            plugin.getLogger().warning("Task为空，请检查文件存储！");
+        if (plugin.exercise == null) {
+            plugin.getLogger().warning("Exercise为空，请检查文件存储！");
             return;
         }
         // 设置回答的玩家数据
         // 在发送问题时再对玩家数据初始化，否则会造成错误记录
-        plugin.task.answeredPlayers = new HashSet<>();
-        plugin.task.winner = null;
+        plugin.exercise.answeredPlayers = new HashSet<>();
+        plugin.exercise.winner = null;
 
         SendText();
         plugin.getLogger().info("已发送编号为" + randomNumber +"的Quiz！");
@@ -74,18 +85,18 @@ public class Quiz extends BukkitRunnable {
     // 发送特定问题
     public void SendSpecificQuiz(int num) {
         if (storageType.equals("YAML")) {
-            plugin.task = plugin.taskList.get(num);
+            plugin.exercise = plugin.exerciseList.get(num);
         } else if (storageType.equals("MYSQL")) {
             plugin.databaseStorage.getQuizById(num);
         }
 
-        if (plugin.task == null) {
-            plugin.getLogger().warning("Task为空，请检查文件存储！");
+        if (plugin.exercise == null) {
+            plugin.getLogger().warning("Exercise为空，请检查文件存储！");
             return;
         }
 
-        plugin.task.answeredPlayers = new HashSet<>();
-        plugin.task.winner = null;
+        plugin.exercise.answeredPlayers = new HashSet<>();
+        plugin.exercise.winner = null;
         SendText();
     }
 
@@ -105,27 +116,27 @@ public class Quiz extends BukkitRunnable {
         // 获取玩家UUID
         UUID playerId = player.getUniqueId();
         // 如果已经有玩家回答正确
-        if (plugin.task.winner != null) {
+        if (plugin.exercise.winner != null) {
             player.sendMessage(plugin.QuizConfig.getString("message.hasCorrect", "已有玩家回答正确！"));
             GameMenu.closeMenu(player);
             return;
         }
         // 检查玩家是否已经回答过
-        if (plugin.task.answeredPlayers.contains(playerId)) {
+        if (plugin.exercise.answeredPlayers.contains(playerId)) {
             player.sendMessage(plugin.QuizConfig.getString("message.hasAnswered", "您已经回答过此问题！"));
             GameMenu.closeMenu(player);
             return;
         }
         // 记录玩家已回答
-        plugin.task.answeredPlayers.add(playerId);
+        plugin.exercise.answeredPlayers.add(playerId);
         // 回答正确
-        if (response.equals(plugin.task.answer)) {
+        if (response.equals(plugin.exercise.answer)) {
             // 给予奖励
-            player.getInventory().addItem(plugin.task.reward);
+            player.getInventory().addItem(plugin.exercise.reward);
             // 发送提示音效
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
             GameMenu.closeMenu(player);
-            plugin.task.winner = playerId;
+            plugin.exercise.winner = playerId;
             player.sendMessage(plugin.QuizConfig.getString("message.correct", "回答正确，奖励已发放！"));
             return;
         }
@@ -152,10 +163,10 @@ public class Quiz extends BukkitRunnable {
 
         // 设置Quiz存储格式
         if (storageType.equals("YAML")) {
-            plugin.taskList = new ArrayList<>();
-            plugin.taskMap = plugin.QuizConfig.getMapList("List");
+            plugin.exerciseList = new ArrayList<>();
+            plugin.exerciseMap = plugin.QuizConfig.getMapList("List");
             quizForYaml.setQuiz();
-            maxNum = plugin.taskList.size();
+            maxNum = plugin.exerciseList.size();
             plugin.getLogger().info("Quiz使用YAML格式");
         } else if (storageType.equals("MYSQL")) {
             plugin.databaseConfig = new QuizForSql.DatabaseConfig();
@@ -183,9 +194,5 @@ public class Quiz extends BukkitRunnable {
 
     public int getMaxNum() {
         return maxNum;
-    }
-
-    public int getInterval() {
-        return interval;
     }
 }

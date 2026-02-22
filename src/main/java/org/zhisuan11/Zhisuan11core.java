@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import org.checkerframework.checker.units.qual.C;
 import org.zhisuan11.command.MainCommand;
 import org.zhisuan11.command.TeleportCommand;
 import org.zhisuan11.command.CommandTabCompleter;
@@ -41,11 +40,13 @@ public final class Zhisuan11core extends JavaPlugin {
 
     // 创建全局变量
     // 问答类
-    public Quiz.Task task;
+
     public File QuizFile;
     public FileConfiguration QuizConfig;
-    public List<Map<?, ?>> taskMap;
-    public List<Quiz.Task> taskList;
+    public Quiz.Exercise exercise;
+
+    public List<Map<?, ?>> exerciseMap;
+    public List<Quiz.Exercise> exerciseList;
 
     // 构造函数
     public Zhisuan11core() {
@@ -59,7 +60,7 @@ public final class Zhisuan11core extends JavaPlugin {
 
         initialTask = new InitialTask();
         scheduleTask = new ScheduleTask();
-        task = new Quiz.Task();
+        exercise = new Quiz.Exercise();
     }
 
     @Override

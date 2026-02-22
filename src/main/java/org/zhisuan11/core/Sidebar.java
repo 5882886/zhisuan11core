@@ -4,24 +4,36 @@ import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.*;
 import org.zhisuan11.Zhisuan11core;
 
 import java.util.Objects;
 
-public class Sidebar extends BukkitRunnable {
+public class Sidebar {
 
-    @Override
+    private BukkitTask update;
 
-    // 创建调用接口
-    public void run() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            update(player);
+    public void startUpdate() {
+        if (update != null) {
+            update.cancel();
         }
+
+        update = new BukkitRunnable() {
+            @Override
+            // 创建调用接口
+            public void run() {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    PlayerSidebar(player);
+                }
+            }
+        }.runTaskTimer(Zhisuan11core.main, 0L, 20L);
+
     }
 
+
     // 实时更新侧边栏
-    private void update(Player player) {
+    private void PlayerSidebar(Player player) {
         Scoreboard scoreboard = player.getScoreboard();
         Objective objective = scoreboard.getObjective("ServerInfo");
 

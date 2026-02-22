@@ -47,18 +47,10 @@ public class MainCommand implements CommandExecutor {
         if (args[0].equals("broadcast")) {
             //  /zs broadcast send
             if (args[1].equals("send")) {
-                if (args.length == 2) {
-                    ScheduleTask.Broadcast broadcast = new ScheduleTask.Broadcast();
-                    broadcast.SendBroadcast();
-                    return true;
-                } else {
-                    sender.sendMessage("您输入的参数过多！");
-                    return false;
-                }
+                ScheduleTask.Broadcast broadcast = new ScheduleTask.Broadcast();
+                broadcast.SendBroadcast();
+                return true;
             }
-
-            sender.sendMessage("用法：/zs broadcast send");
-            sender.sendMessage("您输入的命令可能有误！");
         }
 
         //  /zs menu ...
@@ -69,9 +61,8 @@ public class MainCommand implements CommandExecutor {
                 Inventory MainMenu = Zhisuan11core.main.gameMenu.createMainMenu(player);
                 GameMenu.openMenu(player, MainMenu);
                 return true;
-            }
-            //  /zs menu quiz
-            else if (args[1].equals("quiz")) {
+            } else if (args[1].equals("quiz")) {
+                //  /zs menu quiz
                 Inventory QuizMenu = Zhisuan11core.main.gameMenu.createQuizMenu(player);
                 GameMenu.openMenu(player, QuizMenu);
                 return true;
@@ -84,8 +75,8 @@ public class MainCommand implements CommandExecutor {
                 Location location = player.getLocation();
                 player.getWorld().setSpawnLocation(location.getBlockX(), location.getBlockY(), location.getBlockZ());
                 player.sendMessage("已将您所在的位置设为此世界出生点");
+                return true;
             }
-            return true;
         }
 
         //  /zs kit ...
@@ -156,12 +147,12 @@ public class MainCommand implements CommandExecutor {
         if (args[0].equals("reload")) {
             sender.sendMessage(ChatColor.BLUE + "[zhisuan11core] 正在重载插件配置……");
             Zhisuan11core.main.reloadConfig();
+            Zhisuan11core.main.initialTask.initialTasks();
             sender.sendMessage(ChatColor.BLUE + "[zhisuan11core] 配置文件重载完成！");
             return true;
         }
 
         sender.sendMessage("欢迎使用zhisuan11core MC服务器插件！");
         return false;
-
     }
 }

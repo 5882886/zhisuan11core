@@ -188,20 +188,20 @@ public class QuizForSql {
                 ResultSet rs = statement.executeQuery();
 
                 if (rs.next()) {
-                    plugin.task.question = rs.getString("question");
-                    plugin.task.answer = rs.getString("answer");
+                    plugin.exercise.question = rs.getString("question");
+                    plugin.exercise.answer = rs.getString("answer");
 
                     // options 一定要初始化！
-                    plugin.task.options = new ArrayList<>();
-                    plugin.task.options.add(rs.getString("option_a"));
-                    plugin.task.options.add(rs.getString("option_b"));
-                    plugin.task.options.add(rs.getString("option_c"));
-                    plugin.task.options.add(rs.getString("option_d"));
+                    plugin.exercise.options = new ArrayList<>();
+                    plugin.exercise.options.add(rs.getString("option_a"));
+                    plugin.exercise.options.add(rs.getString("option_b"));
+                    plugin.exercise.options.add(rs.getString("option_c"));
+                    plugin.exercise.options.add(rs.getString("option_d"));
 
                     // 设置奖励
                     String rewardName = rs.getString("reward");
                     Material rewardMaterial = Material.matchMaterial(rewardName.toUpperCase());
-                    plugin.task.reward = new ItemStack(Objects.requireNonNull(rewardMaterial));
+                    plugin.exercise.reward = new ItemStack(Objects.requireNonNull(rewardMaterial));
 
                 }
             } catch (SQLException e) {

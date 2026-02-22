@@ -2,13 +2,10 @@ package org.zhisuan11.tasks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.World;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.zhisuan11.Zhisuan11core;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // 启动插件定时执行的内容
@@ -18,24 +15,16 @@ public class ScheduleTask {
 
     public void ScheduleTasks() {
 
-        /*
-        * 格式：runTaskTimer(Plugin plugin, Long delay, Long period);
-        * */
-
         // 游戏内侧边栏
-        plugin.sidebar.runTaskTimer(plugin, 0L, 20L);
+        plugin.sidebar.startUpdate();
+        // 发送Quiz
+        plugin.quiz.SendTask();
+        // 清理掉落物
+        plugin.clearDropItems.startClear();
 
         // 服务器公告
         Broadcast broadcast = new Broadcast();
         broadcast.runTaskTimer(plugin, 20L * 15, 20L * broadcast.getInterval());
-
-        // 发送Quiz
-        plugin.quiz.runTaskTimer(plugin, 20L * 15, 20L * plugin.quiz.getInterval());
-
-        // 清理掉落物
-        ClearDropItems clearDropItems = new ClearDropItems();
-        clearDropItems.runTaskTimer(plugin, 0L, 20L);
-
         // 检查玩家延迟
         CheckPing checkPing = new CheckPing();
         checkPing.runTaskTimer(plugin, 0L, 20L * 60);

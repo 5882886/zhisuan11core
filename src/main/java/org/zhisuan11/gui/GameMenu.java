@@ -13,7 +13,6 @@ import org.zhisuan11.Zhisuan11core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class GameMenu {
 
@@ -63,14 +62,14 @@ public class GameMenu {
                 "答对有奖！");
 
         // 设置题目
-        AddItemToMenu(Quiz, 4, Material.PAPER, "§r题目", "§r§b" + plugin.task.question);
+        AddItemToMenu(Quiz, 4, Material.PAPER, "§r题目", "§r§b" + plugin.exercise.question);
         // 设置奖品
-        AddItemToMenu(Quiz, 8, plugin.task.reward.getType(), "§r奖品", "货真价实！");
+        AddItemToMenu(Quiz, 8, plugin.exercise.reward.getType(), "§r奖品", "货真价实！");
         // 设置选项
-        AddItemToMenu(Quiz, 19, Material.RED_WOOL, "§r选项A",  "§r§b" + plugin.task.options.get(0));
-        AddItemToMenu(Quiz, 21, Material.YELLOW_WOOL, "§r选项B", "§r§b" + plugin.task.options.get(1));
-        AddItemToMenu(Quiz, 23, Material.BLUE_WOOL, "§r选项C", "§r§b" + plugin.task.options.get(2));
-        AddItemToMenu(Quiz, 25, Material.GREEN_WOOL, "§r选项D", "§r§b" + plugin.task.options.get(3));
+        AddItemToMenu(Quiz, 19, Material.RED_WOOL, "§r选项A",  "§r§b" + plugin.exercise.options.get(0));
+        AddItemToMenu(Quiz, 21, Material.YELLOW_WOOL, "§r选项B", "§r§b" + plugin.exercise.options.get(1));
+        AddItemToMenu(Quiz, 23, Material.BLUE_WOOL, "§r选项C", "§r§b" + plugin.exercise.options.get(2));
+        AddItemToMenu(Quiz, 25, Material.GREEN_WOOL, "§r选项D", "§r§b" + plugin.exercise.options.get(3));
 
         // 玩家信息（左下角）
         Quiz.setItem(36, createPlayerHead(player));

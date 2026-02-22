@@ -18,7 +18,8 @@ public class CommandTabCompleter implements TabCompleter {
                 // 提供参数补全建议
                 List<String> completions = new ArrayList<>();
                 //创建参数补全列表
-                AddCompletions(completions, "help", "info", "menu", "kit", "quiz", "broadcast", "setspawn", "reload");
+                AddCompletions(completions, "help", "info", "menu", "kit", "quiz",
+                        "broadcast", "setspawn", "cleardropitems", "reload");
                 return completions;
             } else if (args.length == 2) {
                 switch (args[0]) {

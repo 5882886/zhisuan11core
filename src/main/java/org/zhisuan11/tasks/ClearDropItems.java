@@ -5,74 +5,86 @@ import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.Item;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.zhisuan11.Zhisuan11core;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClearDropItems extends BukkitRunnable {
+public class ClearDropItems {
 
     private String enable;
     private int interval;
     private List<Integer> warnings;
     private String message;
     private String warning;
+    private BukkitTask clear;
 
     public ClearDropItems() {
         enable = "false";
         interval = 900;
-
         warnings = new ArrayList<>();
-        warnings.add(60);
-        warnings.add(30);
-        warnings.add(10);
     }
 
     int secondsLeft = interval;
 
-    @Override
-    public void run() {
-        for (int warning : warnings) {
-            if (secondsLeft == warning) {
-                broadcastWarning(warning);
-                break;
-            }
+    public void startClear() {
+        if (clear != null) {
+            clear.cancel();
         }
-        // 每秒执行一次
-        secondsLeft--;
 
-        if (secondsLeft <= 0) {
-            clearAllWorlds();
-            // 重置清理间隔
-            secondsLeft = interval;
-        }
+        clear = new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (int warning : warnings) {
+                    if (secondsLeft == warning) {
+                        broadcastWarning(warning);
+                        break;
+                    }
+                }
+                // 每秒执行一次
+                secondsLeft--;
+
+                if (secondsLeft <= 0) {
+                    clearAllWorlds();
+                    // 重置清理间隔
+                    secondsLeft = interval;
+                }
+            }
+        }.runTaskTimer(Zhisuan11core.main, 0L ,20L);
     }
 
     // 初始化配置
     public void loadConfig() {
         enable = Zhisuan11core.main.getConfig().getString("ClearDropItems.enabled", "false");
         interval = Zhisuan11core.main.getConfig().getInt("ClearDropItems.interval", 900);
+        // 设置警告时间点
         warnings = Zhisuan11core.main.getConfig().getIntegerList("ClearDropItems.warnings");
+        if (warnings.isEmpty()) {
+            warnings.add(60);
+            warnings.add(30);
+            warnings.add(10);
+        }
 
         message = Zhisuan11core.main.getConfig().getString("ClearDropItems.message",
-                "&a[zhisuan11core] &e已清理 &b%count% &e个掉落物！");
+                "&a[zhisuan11core] &e已清理&b %count% &e个掉落物！");
         warning = Zhisuan11core.main.getConfig().getString("ClearDropItems.warning",
-                "&e[zhisuan11core] &c警告！&e物品将在 &b%seconds% &e秒后清理！");
+                "&e[zhisuan11core] &c警告！&e 物品将在&b %seconds% &e秒后清理！");
     }
 
     // 清理所有世界的掉落物
     public void clearAllWorlds() {
         if (enable.equals("true")) {
             int count = 0;
-            message = message.replace("%count", String.valueOf(count));
-
             for (World world : Bukkit.getWorlds()) {
                 for (Item item : world.getEntitiesByClass(Item.class)) {
-                    item.remove();
                     count ++;
+                    item.remove();
                 }
             }
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
+            String broadcastMsg = message.replace("%count%", String.valueOf(count));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', broadcastMsg));
+            Zhisuan11core.main.getLogger().info("清理掉落物成功！");
         }
     }
 
@@ -80,17 +92,15 @@ public class ClearDropItems extends BukkitRunnable {
     public boolean clearSpecificWorlds(String worldName) {
         if (enable.equals("true")) {
             int count = 0;
-            message = message.replace("%count", String.valueOf(count));
-
             World world = Bukkit.getWorld(worldName);
             if (world == null) return false;
 
             for (Item item : world.getEntitiesByClass(Item.class)) {
-                item.remove();
                 count ++;
+                item.remove();
             }
-
-            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', message));
+            String broadcastMsg = message.replace("%count%", String.valueOf(count));
+            Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', broadcastMsg));
             return true;
         }
         return false;

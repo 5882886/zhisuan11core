@@ -13,13 +13,13 @@ public class QuizForYaml {
 
     // 设置问答池
     public void setQuiz() {
-        if (plugin.taskMap == null || plugin.taskMap.isEmpty()) {
+        if (plugin.exerciseMap == null || plugin.exerciseMap.isEmpty()) {
             Zhisuan11core.main.getLogger().warning("问答池为空！");
             return;
         }
 
-        for (Map<?, ?> taskMap : plugin.taskMap) {
-            Quiz.Task temp = new Quiz.Task();
+        for (Map<?, ?> taskMap : plugin.exerciseMap) {
+            Quiz.Exercise temp = new Quiz.Exercise();
 
             temp.question = (String) taskMap.get("Question");
             temp.answer = (String) taskMap.get("Answer");
@@ -37,7 +37,7 @@ public class QuizForYaml {
             Material rewardMaterial = Material.matchMaterial(rewardName.toUpperCase());
             temp.reward = new ItemStack(Objects.requireNonNull(rewardMaterial));
 
-            plugin.taskList.add(temp);
+            plugin.exerciseList.add(temp);
         }
     }
 }
