@@ -32,8 +32,8 @@ public class SeverTask {
     // 结束任务
     public void CloseTasks() {
         // 关闭数据库连接
-        if (plugin.databaseStorage != null) {
-            plugin.databaseStorage.close();
+        if (plugin.quizForSql != null) {
+            plugin.quizForSql.close();
         }
     }
 }

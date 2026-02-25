@@ -112,7 +112,7 @@ public class MainCommand implements CommandExecutor {
                 }
                 case "show" -> {
                     //  /zs quiz show
-                    sender.sendMessage("当前题库中共有" + Zhisuan11core.main.quiz.getMaxNum() + "题");
+                    sender.sendMessage("当前题库中共有" + Zhisuan11core.main.quizConfig.getMaxNum() + "题");
                     return true;
                 }
                 case "reload" -> {
@@ -144,7 +144,7 @@ public class MainCommand implements CommandExecutor {
         if (args[0].equals("reload")) {
             sender.sendMessage(ChatColor.BLUE + "[zhisuan11core] 正在重载插件配置……");
             Zhisuan11core.main.reloadConfig();
-            Zhisuan11core.main.scheduleTask.InitialTasks();
+            Zhisuan11core.main.severTask.InitialTasks();
             sender.sendMessage(ChatColor.BLUE + "[zhisuan11core] 配置文件重载完成！");
             return true;
         }

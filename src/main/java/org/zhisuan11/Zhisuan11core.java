@@ -8,9 +8,12 @@ import org.zhisuan11.command.MainCommand;
 import org.zhisuan11.command.TeleportCommand;
 import org.zhisuan11.command.CommandTabCompleter;
 import org.zhisuan11.core.*;
+import org.zhisuan11.database.DataSourceManager;
+import org.zhisuan11.database.DatabaseConfig;
 import org.zhisuan11.gui.GameMenu;
 import org.zhisuan11.gui.GameMenuClick;
 import org.zhisuan11.quiz.Quiz;
+import org.zhisuan11.quiz.QuizConfig;
 import org.zhisuan11.quiz.QuizForSql;
 import org.zhisuan11.tasks.Broadcast;
 import org.zhisuan11.tasks.CheckPing;
@@ -18,8 +21,6 @@ import org.zhisuan11.tasks.ClearDropItems;
 import org.zhisuan11.tasks.SeverTask;
 
 import java.io.File;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 
@@ -29,26 +30,26 @@ public final class Zhisuan11core extends JavaPlugin {
     public static Zhisuan11core main;
 
     // 声明全局类
-    public QuizForSql.DatabaseConfig databaseConfig;
-    public QuizForSql.DatabaseStorage databaseStorage;
     public Quiz quiz;
+    public QuizConfig quizConfig;
+    public QuizForSql quizForSql;
+
     public GameMenu gameMenu;
     public Sidebar sidebar;
-
     public Broadcast broadcast;
     public ClearDropItems clearDropItems;
     public CheckPing checkPing;
 
-    public SeverTask scheduleTask;
+    // 数据库相关
+    public DatabaseConfig databaseConfig;
+    public DataSourceManager dataSourceManager;
+
+    public SeverTask severTask;
 
     // 创建全局变量
     // 问答类
     public File QuizFile;
     public FileConfiguration QuizConfig;
-    public Quiz.Exercise exercise;
-
-    public List<Map<?, ?>> exerciseMap;
-    public List<Quiz.Exercise> exerciseList;
 
     // 构造函数
     public Zhisuan11core() {
@@ -56,6 +57,7 @@ public final class Zhisuan11core extends JavaPlugin {
         main = this;
         // 初始化全局类
         quiz = new Quiz();
+        quizConfig = new QuizConfig();
         gameMenu = new GameMenu();
         sidebar = new Sidebar();
 
@@ -63,8 +65,8 @@ public final class Zhisuan11core extends JavaPlugin {
         clearDropItems = new ClearDropItems();
         checkPing = new CheckPing();
 
-        scheduleTask = new SeverTask();
-        exercise = new Quiz.Exercise();
+        databaseConfig = new DatabaseConfig();
+        severTask = new SeverTask();
     }
 
     @Override
@@ -99,8 +101,8 @@ public final class Zhisuan11core extends JavaPlugin {
         reloadConfig();
 
         // 服务器任务
-        scheduleTask.InitialTasks();
-        scheduleTask.ScheduleTasks();
+        severTask.InitialTasks();
+        severTask.ScheduleTasks();
     }
 
     @Override
@@ -119,6 +121,6 @@ public final class Zhisuan11core extends JavaPlugin {
         getLogger().info(" ");
 
 
-        scheduleTask.CloseTasks();
+        severTask.CloseTasks();
     }
 }

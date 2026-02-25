@@ -67,14 +67,14 @@ public class GameMenu {
                 "点击对应的选项方块回答问题",
                 "答对有奖！");
         // 设置题目
-        AddItemToMenu(QuizMenu, 4, Material.PAPER, "§r题目", "§r§b" + plugin.exercise.question);
+        AddItemToMenu(QuizMenu, 4, Material.PAPER, "§r题目", "§r§b" + plugin.quiz.question);
         // 设置奖品
-        AddItemToMenu(QuizMenu, 8, plugin.exercise.reward.getType(), "§r奖品", "货真价实！");
+        AddItemToMenu(QuizMenu, 8, plugin.quiz.reward.getType(), "§r奖品", "货真价实！");
         // 设置选项
-        AddItemToMenu(QuizMenu, 19, Material.RED_WOOL, "§r选项A",  "§r§b" + plugin.exercise.options.get(0));
-        AddItemToMenu(QuizMenu, 21, Material.YELLOW_WOOL, "§r选项B", "§r§b" + plugin.exercise.options.get(1));
-        AddItemToMenu(QuizMenu, 23, Material.BLUE_WOOL, "§r选项C", "§r§b" + plugin.exercise.options.get(2));
-        AddItemToMenu(QuizMenu, 25, Material.GREEN_WOOL, "§r选项D", "§r§b" + plugin.exercise.options.get(3));
+        AddItemToMenu(QuizMenu, 19, Material.RED_WOOL, "§r选项A",  "§r§b" + plugin.quiz.options.get(0));
+        AddItemToMenu(QuizMenu, 21, Material.YELLOW_WOOL, "§r选项B", "§r§b" + plugin.quiz.options.get(1));
+        AddItemToMenu(QuizMenu, 23, Material.BLUE_WOOL, "§r选项C", "§r§b" + plugin.quiz.options.get(2));
+        AddItemToMenu(QuizMenu, 25, Material.GREEN_WOOL, "§r选项D", "§r§b" + plugin.quiz.options.get(3));
         // 玩家信息（左下角）
         QuizMenu.setItem(36, createPlayerHead(player));
         // 插件信息（右下角）

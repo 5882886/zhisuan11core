@@ -5,6 +5,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -13,6 +14,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import org.zhisuan11.Zhisuan11core;
+import org.zhisuan11.database.DataSourceManager;
+import org.zhisuan11.database.DatabaseInitial;
 
 import java.io.File;
 import java.util.*;
@@ -23,28 +26,22 @@ public class Quiz {
     private final Zhisuan11core plugin = Zhisuan11core.main;
     private BukkitTask send;
 
-    // 题目类
-    public static class Exercise {
-        public String question;
-        public List<String> options;
-        public String answer;
-        public ItemStack reward;
+    // 问题内容
+    public String question;
+    public List<String> options;
+    public String answer;
+    public ItemStack reward;
 
-        // 回答玩家数据记录
-        public Set<UUID> answeredPlayers;
-        public UUID winner;
-    }
-
-    private int interval;
-    private int maxNum;
-    private String storageType;
+    // 回答玩家数据记录
+    private Set<UUID> answeredPlayers;
+    private UUID winner;
 
     public Quiz() {
-        interval = 600;
-        maxNum = 0;
-        storageType = "YAML";
+        this.options = new ArrayList<>();
+        this.answeredPlayers = new HashSet<>();
     }
 
+    // 定时任务
     public void SendTask() {
         if (send != null) {
             send.cancel();
@@ -55,9 +52,8 @@ public class Quiz {
             public void run() {
                 SendQuiz();
             }
-        }.runTaskTimer(plugin, 0L, 20L * interval);
+        }.runTaskTimer(plugin, 0L, 20L * plugin.quizConfig.getInterval());
     }
-
 
     /* ----- 发送问题 ----- */
     // 问题回答界面在 /gui/GameMenu.java
@@ -66,24 +62,24 @@ public class Quiz {
         // 设置随机数
         Random random = new Random();
         int randomNumber = 0;
-        if (storageType.equals("YAML")) {
-            randomNumber = random.nextInt(plugin.exerciseList.size());
-            plugin.exercise = plugin.exerciseList.get(randomNumber);
-        } else if (storageType.equals("MYSQL")) {
+        if (plugin.quizConfig.getStorageType().equals("YAML")) {
+            randomNumber = random.nextInt(plugin.quizConfig.QuizList.size());
+            plugin.quiz = plugin.quizConfig.QuizList.get(randomNumber);
+        } else if (plugin.quizConfig.getStorageType().equals("MYSQL")) {
             // 获取 [1, maxId] 之间的随机数
             // random.nextInt(b-a+1)+1 获取 [a, b] 之间的随机整数
-            randomNumber = random.nextInt(plugin.databaseStorage.maxId) + 1;
-            plugin.databaseStorage.getQuizById(randomNumber);
+            randomNumber = random.nextInt(plugin.quizForSql.maxId) + 1;
+            plugin.quizForSql.getQuizById(randomNumber);
         }
 
-        if (plugin.exercise == null) {
+        if (plugin.quiz == null) {
             plugin.getLogger().warning("Exercise为空，请检查文件存储！");
             return;
         }
         // 设置回答的玩家数据
         // 在发送问题时再对玩家数据初始化，否则会造成错误记录
-        plugin.exercise.answeredPlayers = new HashSet<>();
-        plugin.exercise.winner = null;
+        plugin.quiz.answeredPlayers = new HashSet<>();
+        plugin.quiz.winner = null;
 
         SendText();
         plugin.getLogger().info("已发送编号为" + randomNumber +"的Quiz！");
@@ -91,19 +87,19 @@ public class Quiz {
 
     // 发送特定问题
     public void SendSpecificQuiz(int num) {
-        if (storageType.equals("YAML")) {
-            plugin.exercise = plugin.exerciseList.get(num);
-        } else if (storageType.equals("MYSQL")) {
-            plugin.databaseStorage.getQuizById(num);
+        if (plugin.quizConfig.getStorageType().equals("YAML")) {
+            plugin.quiz = plugin.quizConfig.QuizList.get(num);
+        } else if (plugin.quizConfig.getStorageType().equals("MYSQL")) {
+            plugin.quizForSql.getQuizById(num);
         }
 
-        if (plugin.exercise == null || num > maxNum) {
+        if (plugin.quiz == null || num > plugin.quizConfig.maxNum) {
             plugin.getLogger().warning("Exercise为空，请检查文件存储！");
             return;
         }
 
-        plugin.exercise.answeredPlayers = new HashSet<>();
-        plugin.exercise.winner = null;
+        plugin.quiz.answeredPlayers = new HashSet<>();
+        plugin.quiz.winner = null;
         SendText();
     }
 
@@ -123,27 +119,27 @@ public class Quiz {
         // 获取玩家UUID
         UUID playerId = player.getUniqueId();
         // 如果已经有玩家回答正确
-        if (plugin.exercise.winner != null) {
+        if (plugin.quiz.winner != null) {
             player.sendMessage(plugin.QuizConfig.getString("message.hasCorrect", "已有玩家回答正确！"));
             Zhisuan11core.main.gameMenu.closeMenu(player);
             return;
         }
         // 检查玩家是否已经回答过
-        if (plugin.exercise.answeredPlayers.contains(playerId)) {
+        if (plugin.quiz.answeredPlayers.contains(playerId)) {
             player.sendMessage(plugin.QuizConfig.getString("message.hasAnswered", "您已经回答过此问题！"));
             Zhisuan11core.main.gameMenu.closeMenu(player);
             return;
         }
         // 记录玩家已回答
-        plugin.exercise.answeredPlayers.add(playerId);
+        plugin.quiz.answeredPlayers.add(playerId);
         // 回答正确
-        if (response.equals(plugin.exercise.answer)) {
+        if (response.equals(plugin.quiz.answer)) {
             // 给予奖励
-            player.getInventory().addItem(plugin.exercise.reward);
+            player.getInventory().addItem(plugin.quiz.reward);
             // 发送提示音效
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
             Zhisuan11core.main.gameMenu.closeMenu(player);
-            plugin.exercise.winner = playerId;
+            plugin.quiz.winner = playerId;
             player.sendMessage(plugin.QuizConfig.getString("message.correct", "回答正确，奖励已发放！"));
             return;
         }
@@ -155,8 +151,6 @@ public class Quiz {
     /* ---- 问题生成 ----- */
     // 初始化Quiz
     public void initialQuiz() {
-        QuizForYaml quizForYaml = new QuizForYaml();
-
         // 生成Quiz.yml文件
         plugin.QuizFile = new File(plugin.getDataFolder(), "Quiz.yml");
         if (!plugin.QuizFile.exists()) {
@@ -164,42 +158,69 @@ public class Quiz {
         }
         plugin.QuizConfig = YamlConfiguration.loadConfiguration(plugin.QuizFile);
 
-        // 获取设置参数
-        interval = plugin.QuizConfig.getInt("config.interval", 900);
-        storageType = plugin.QuizConfig.getString("config.storage", "YAML");
+        plugin.quizConfig.setInterval();
+        plugin.quizConfig.setStorageType();
 
         // 设置Quiz存储格式
-        if (storageType.equalsIgnoreCase("YAML")) {
-            plugin.exerciseList = new ArrayList<>();
-            plugin.exerciseMap = plugin.QuizConfig.getMapList("List");
-            quizForYaml.setQuiz();
-            maxNum = plugin.exerciseList.size();
+        if (plugin.quizConfig.getStorageType().equalsIgnoreCase("YAML")) {
+            plugin.quizConfig.QuizMap = plugin.QuizConfig.getMapList("List");
+            // 重置QuizList
+            plugin.quizConfig.QuizList = new ArrayList<>();
+            SetQuizForYaml();
+            plugin.quizConfig.maxNum = plugin.quizConfig.QuizList.size();
             plugin.getLogger().info("Quiz使用YAML格式");
-        } else if (storageType.equalsIgnoreCase("MYSQL")) {
-            plugin.databaseConfig = new QuizForSql.DatabaseConfig();
+        } else if (plugin.quizConfig.getStorageType().equalsIgnoreCase("MYSQL")) {
             // 设置数据库信息
             plugin.databaseConfig.setType(plugin.QuizConfig.getString("config.storage", "mysql"));
             plugin.databaseConfig.setHost(plugin.QuizConfig.getString("config.host", "localhost"));
             plugin.databaseConfig.setPort(plugin.QuizConfig.getInt("config.port", 3306));
-            plugin.databaseConfig.setDatabase(plugin.QuizConfig.getString("config.database", "quiz"));
+            plugin.databaseConfig.setDatabase(plugin.QuizConfig.getString("config.database", "zhisuan11"));
             plugin.databaseConfig.setUsername(plugin.QuizConfig.getString("config.name", "root"));
             plugin.databaseConfig.setPassword(plugin.QuizConfig.getString("config.password", ""));
             plugin.databaseConfig.setUseSSL(plugin.QuizConfig.getBoolean("config.useSSL", false));
 
-            QuizForSql.DataSourceManager dataSourceManager = new QuizForSql.DataSourceManager(plugin.databaseConfig);
-            QuizForSql.DatabaseInitial databaseInitial = new QuizForSql.DatabaseInitial(dataSourceManager);
+            plugin.dataSourceManager = new DataSourceManager(plugin.databaseConfig);
+            DatabaseInitial databaseInitial = new DatabaseInitial(plugin.dataSourceManager);
             databaseInitial.InitialTables();
 
-            plugin.databaseStorage = new QuizForSql.DatabaseStorage(dataSourceManager);
-            plugin.databaseStorage.setQuiz();
+            plugin.quizForSql = new QuizForSql(plugin.dataSourceManager);
+            plugin.quizForSql.setQuiz();
 
-            maxNum = plugin.databaseStorage.maxId;
+            plugin.quizConfig.maxNum = plugin.quizForSql.maxId;
 
             plugin.getLogger().info("Quiz使用MYSQL格式");
         }
     }
 
-    public int getMaxNum() {
-        return maxNum;
+    // 设置问答池
+    public void SetQuizForYaml() {
+        if (plugin.quizConfig.QuizMap == null || plugin.quizConfig.QuizMap.isEmpty()) {
+            Zhisuan11core.main.getLogger().warning("问答池为空！");
+            return;
+        }
+
+        for (Map<?, ?> taskMap : plugin.quizConfig.QuizMap) {
+            Quiz temp = new Quiz();
+
+            temp.question = (String) taskMap.get("Question");
+            temp.answer = (String) taskMap.get("Answer");
+
+            Map<?, ?> options = (Map<?, ?>) taskMap.get("Options");
+            temp.options = new ArrayList<>();
+            temp.options.add((String) options.get("A"));
+            temp.options.add((String) options.get("B"));
+            temp.options.add((String) options.get("C"));
+            temp.options.add((String) options.get("D"));
+
+            // 设置奖品
+            Object rewardObj = taskMap.get("Reward");
+            String rewardName = rewardObj.toString();
+            Material rewardMaterial = Material.matchMaterial(rewardName.toUpperCase());
+            temp.reward = new ItemStack(Objects.requireNonNull(rewardMaterial));
+
+            plugin.quizConfig.QuizList.add(temp);
+        }
+
+        plugin.getLogger().info("当前题库共有" + plugin.quizConfig.QuizList.size() + "题");
     }
 }

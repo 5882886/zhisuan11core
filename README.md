@@ -21,7 +21,7 @@ Currently, it's used on the Minecraft server of my class.
 - [x] Sidebar
 - [x] Quiz
 - [x] Database support
-- [ ] Clear drop items
+- [x] Clear drop items
 - [ ] Daily login event
 
 > More is coming soon ...
@@ -57,18 +57,22 @@ In theory, it can run on all Minecraft server cores based on the Bukkit API!
     │   │       ├── gui（游戏内菜单）
     │   │       │   ├── GameMenu.java                   # 游戏内菜单核心文件
     │   │       │   └── GameMenuClick.java              # 游戏内菜单点击事件
-    │   │       │        
+    │   │       │      
+    │   │       ├── database（数据库系统）
+    │   │       │   ├── DatabaseConfig.java             # 数据库设置
+    │   │       │   ├── DatabaseInitial.java            # 数据库初始化
+    │   │       │   └── DataSourceManager.java          # 数据源管理
+    │   │       │  
     │   │       ├── quiz（问答系统）
     │   │       │   ├── Quiz.java                       # Quiz主文件
-    │   │       │   ├── QuizForSql.java                 # Quiz的MySQL存储
-    │   │       │   └── QuizForYaml.java                # Quiz的YAML存储
+    │   │       │   ├── QuizConfig.java                 # Quiz管理
+    │   │       │   └── QuizForSql.java                 # Quiz的SQL存储
     │   │       │
     │   │       ├── tasks（定时事件）
     │   │       │   ├── Broadcast.java                  # 服务器公告
     │   │       │   ├── CheckPing.java                  # 检测Ping值    
     │   │       │   ├── ClearDropItems.java             # 清理掉落物              
-    │   │       │   ├── InitialTask.java                # 处理初始事件
-    │   │       │   └── ScheduleTask.java               # 处理定时事件
+    │   │       │   └── ServerTask.java                 # 处理定时事件
     │   │       │    
     │   │       └── Zhisuan11core.java      # 主文件，插件启动标识
     │   │        
